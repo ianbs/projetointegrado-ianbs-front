@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
+import nookies from "nookies";
 
 import HeadPage from "./Components/Head";
 
@@ -13,9 +14,13 @@ export default function Login() {
 	const handleLogin = (e) => {
 		e.preventDefault();
 		console.log(username, password);
+		nookies.set(null, "USER_TOKEN", {
+			path: "/",
+			maxAge: 86400,
+		});
 		username === "admin" && password === "admin"
-			? router.push("/")
-			: router.push("/login");
+			? router.push({ pathname: "/" })
+			: router.push({ pathname: "/login" });
 	};
 
 	return (

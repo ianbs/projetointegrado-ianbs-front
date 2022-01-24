@@ -42,6 +42,7 @@ const Header = styled.header`
 		}
 		.logout-wrapper {
 			margin-right: 1rem;
+			cursor: pointer;
 		}
 	}
 `;
