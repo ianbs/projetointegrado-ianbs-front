@@ -14,9 +14,12 @@ export default function Exames() {
 	return (
 		<div className="">
 			<HeadPage pageTitle={"[Exames]"} />
-			<SidebarComponent ativo={"atendimento"}></SidebarComponent>
+			<SidebarComponent
+				ativo={"atendimento"}
+				subitem={"exames"}
+			></SidebarComponent>
 			<Main>
-				<HeaderComponent></HeaderComponent>
+				<HeaderComponent title={"Atendimentos - Exames"}></HeaderComponent>
 				<MainContent>Exames</MainContent>
 			</Main>
 		</div>

@@ -1,8 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import styled from "styled-components";
 
-export default function SidebarComponent({ ativo }) {
+export default function SidebarComponent({ ativo, subitem }) {
+	const [atendimentoCollapse, setAtendimentoCollapse] = useState(false);
+	const [cadastroCollapse, setCadastroCollapse] = useState(false);
+
 	return (
 		<Sidebar>
 			<div className="sidebar-brand">
@@ -25,27 +29,106 @@ export default function SidebarComponent({ ativo }) {
 				<ul>
 					<li>
 						<Link href={`/`}>
-							<a className={ativo === "inicio" ? "active" : ""}>
+							<a
+								onClick={() => {
+									setAtendimentoCollapse(false);
+									setCadastroCollapse(false);
+								}}
+								className={ativo === "inicio" ? "active" : ""}
+							>
 								<i className="las la-home"></i>
 								Início
 							</a>
 						</Link>
 					</li>
 					<li>
-						<Link href={`/atendimentos/consultas`}>
-							<a className={ativo === "atendimento" ? "active" : ""}>
-								<i className="las la-comment-medical"></i>
-								Atendimentos
-							</a>
-						</Link>
+						<a
+							onClick={() => {
+								setAtendimentoCollapse(true);
+								setCadastroCollapse(false);
+							}}
+							className={ativo === "atendimento" ? "active" : ""}
+						>
+							<i className="las la-comment-medical"></i>
+							Atendimentos
+						</a>
+
+						<ul
+							className={
+								atendimentoCollapse
+									? "subitem-menu show"
+									: "subitem-menu hidden"
+							}
+						>
+							<li>
+								<Link href={`/atendimentos/consultas`}>
+									<a
+										className={subitem === "consulta" ? "sub-item-active" : ""}
+									>
+										Consultas
+									</a>
+								</Link>
+							</li>
+							<li>
+								<Link href={`/atendimentos/exames`}>
+									<a className={subitem === "exames" ? "sub-item-active" : ""}>
+										Exames
+									</a>
+								</Link>
+							</li>
+						</ul>
 					</li>
 					<li>
-						<Link href={`/cadastros/medicos`}>
-							<a className={ativo === "cadastros" ? "active" : ""}>
-								<i className="las la-users"></i>
-								Cadastros
-							</a>
-						</Link>
+						<a
+							onClick={() => {
+								setCadastroCollapse(true);
+								setAtendimentoCollapse(false);
+							}}
+							className={ativo === "cadastros" ? "active" : ""}
+						>
+							<i className="las la-users"></i>
+							Cadastros
+						</a>
+						<ul
+							className={
+								cadastroCollapse ? "subitem-menu show" : "subitem-menu hidden"
+							}
+						>
+							<li>
+								<Link href={`/cadastros/convenios`}>
+									<a
+										className={subitem === "convenio" ? "sub-item-active" : ""}
+									>
+										Convênios
+									</a>
+								</Link>
+							</li>
+							<li>
+								<Link href={`/cadastros/medicos`}>
+									<a className={subitem === "medico" ? "sub-item-active" : ""}>
+										Médicos
+									</a>
+								</Link>
+							</li>
+							<li>
+								<Link href={`/cadastros/pacientes`}>
+									<a
+										className={subitem === "pacientes" ? "sub-item-active" : ""}
+									>
+										Pacientes
+									</a>
+								</Link>
+							</li>
+							<li>
+								<Link href={`/cadastros/usuarios`}>
+									<a
+										className={subitem === "usuarios" ? "sub-item-active" : ""}
+									>
+										Usuários
+									</a>
+								</Link>
+							</li>
+						</ul>
 					</li>
 					<li>
 						<Link href={`/financeiro`}>
@@ -70,7 +153,7 @@ export default function SidebarComponent({ ativo }) {
 }
 
 const Sidebar = styled.aside`
-	width: 345px;
+	width: 250px;
 	position: fixed;
 	left: 0;
 	top: 0;
@@ -105,32 +188,58 @@ const Sidebar = styled.aside`
 
 	.sidebar-menu {
 		margin-top: 1rem;
+		font-size: 1rem;
+		overflow: hidden;
 		li {
 			width: 100%;
-			margin-bottom: 1.3rem;
+			/* margin-bottom: 1rem; */
+
 			padding-left: 1rem;
 			.active {
+				background: var(--text-grey);
+				padding-top: 0.8rem;
+				padding-bottom: 0.8rem;
+				color: var(--white);
+				border-radius: 1rem 0 0 1rem;
+			}
+			.sub-item-active {
 				background: var(--white);
-				padding-top: 1rem;
-				padding-bottom: 1rem;
 				color: var(--text-grey);
 				border-radius: 1rem 0 0 1rem;
 			}
+			.subitem-menu {
+				width: 100%;
+				height: 100%;
+				a {
+					padding-top: 0.8rem;
+					padding-bottom: 0.8rem;
+				}
+			}
+		}
+
+		.hidden {
+			display: none;
+		}
+
+		.show {
+			display: block;
 		}
 
 		a {
 			display: block;
-			font-size: 1rem;
+			padding-left: 1rem;
 			text-decoration: none;
+			padding-top: 0.8rem;
+			padding-bottom: 0.8rem;
 			color: var(--color-dark);
 			&:first-child {
-				font-size: 1.2rem;
+				font-size: 1rem;
 				padding-right: 1.5rem;
 			}
 			&:hover {
 				background-color: var(--text-grey);
-				/* padding-top: 1rem; */
-				/* padding-bottom: 1rem; */
+				padding-top: 1rem;
+				padding-bottom: 1rem;
 				color: var(--white);
 				border-radius: 1rem 0 0 1rem;
 			}

@@ -14,9 +14,12 @@ export default function Pacientes() {
 	return (
 		<div className="">
 			<HeadPage pageTitle={"[Pacientes]"} />
-			<SidebarComponent ativo={"cadastros"}></SidebarComponent>
+			<SidebarComponent
+				ativo={"cadastros"}
+				subitem={"pacientes"}
+			></SidebarComponent>
 			<Main>
-				<HeaderComponent></HeaderComponent>
+				<HeaderComponent title={"Cadastros - Pacientes"}></HeaderComponent>
 				<MainContent>Pacientes</MainContent>
 			</Main>
 		</div>

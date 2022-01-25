@@ -14,9 +14,12 @@ export default function Usuarios() {
 	return (
 		<div className="">
 			<HeadPage pageTitle={"[Usuários]"} />
-			<SidebarComponent ativo={"cadastros"}></SidebarComponent>
+			<SidebarComponent
+				ativo={"cadastros"}
+				subitem={"usuarios"}
+			></SidebarComponent>
 			<Main>
-				<HeaderComponent></HeaderComponent>
+				<HeaderComponent title={"Cadastros - Usuários"}></HeaderComponent>
 				<MainContent>Usuários</MainContent>
 			</Main>
 		</div>

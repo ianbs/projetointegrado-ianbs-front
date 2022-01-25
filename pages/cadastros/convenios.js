@@ -14,9 +14,12 @@ export default function Convenios() {
 	return (
 		<div className="">
 			<HeadPage pageTitle={"[Convênios]"} />
-			<SidebarComponent ativo={"cadastros"}></SidebarComponent>
+			<SidebarComponent
+				ativo={"cadastros"}
+				subitem={"convenio"}
+			></SidebarComponent>
 			<Main>
-				<HeaderComponent></HeaderComponent>
+				<HeaderComponent title={"Cadastros - Convênios"}></HeaderComponent>
 				<MainContent>Convenios</MainContent>
 			</Main>
 		</div>

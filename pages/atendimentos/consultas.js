@@ -14,9 +14,12 @@ export default function Consultas() {
 	return (
 		<div className="">
 			<HeadPage pageTitle={"[Consultas]"} />
-			<SidebarComponent ativo={"atendimento"}></SidebarComponent>
+			<SidebarComponent
+				ativo={"atendimento"}
+				subitem={"consulta"}
+			></SidebarComponent>
 			<Main>
-				<HeaderComponent></HeaderComponent>
+				<HeaderComponent title={"Atendimentos - Consultas"}></HeaderComponent>
 				<MainContent>Consultas</MainContent>
 			</Main>
 		</div>

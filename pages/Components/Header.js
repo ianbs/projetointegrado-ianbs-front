@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export default function HeaderComponent() {
+export default function HeaderComponent({ title }) {
 	return (
 		<Header>
 			<h1>
 				<label>
 					<i className="las la-bars"></i>
-					Início
+					{title}
 				</label>
 			</h1>
 			<div className="right-header">
@@ -31,8 +31,8 @@ const Header = styled.header`
 	padding: 1rem;
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 	position: fixed;
-	left: 345px;
-	width: calc(100% - 345px);
+	left: 250px;
+	width: calc(100% - 250px);
 	top: 0;
 	z-index: 100;
 	.right-header {

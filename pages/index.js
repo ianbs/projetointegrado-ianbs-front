@@ -44,7 +44,7 @@ export default function Home() {
 			<HeadPage pageTitle={"[Início]"} />
 			<SidebarComponent ativo={"inicio"}></SidebarComponent>
 			<Main>
-				<HeaderComponent></HeaderComponent>
+				<HeaderComponent title={"Dashboard"}></HeaderComponent>
 				<MainContent>
 					<div className="cards">
 						<div className="card-single">
@@ -171,7 +171,7 @@ export async function getServerSideProps(ctx) {
 }
 
 const Main = styled.main`
-	margin-left: 345px;
+	margin-left: 265px;
 `;
 
 const MainContent = styled.main`
@@ -247,7 +247,7 @@ const MainContent = styled.main`
 			margin-bottom: 1rem;
 		}
 		.card-body {
-			height: 30%;
+			height: 40vh;
 			width: 100%;
 			overflow-y: scroll;
 			padding-left: 1rem;
