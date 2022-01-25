@@ -1,7 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 import styled from "styled-components";
 
-export default function SidebarComponent() {
+export default function SidebarComponent({ ativo }) {
 	return (
 		<Sidebar>
 			<div className="sidebar-brand">
@@ -23,34 +24,44 @@ export default function SidebarComponent() {
 			<div className="sidebar-menu">
 				<ul>
 					<li>
-						<a className="active">
-							<i className="las la-home"></i>
-							Início
-						</a>
+						<Link href={`/`}>
+							<a className={ativo === "inicio" ? "active" : ""}>
+								<i className="las la-home"></i>
+								Início
+							</a>
+						</Link>
 					</li>
 					<li>
-						<a>
-							<i className="las la-comment-medical"></i>
-							Atendimentos
-						</a>
+						<Link href={`/atendimentos/consultas`}>
+							<a className={ativo === "atendimento" ? "active" : ""}>
+								<i className="las la-comment-medical"></i>
+								Atendimentos
+							</a>
+						</Link>
 					</li>
 					<li>
-						<a>
-							<i className="las la-users"></i>
-							Cadastros
-						</a>
+						<Link href={`/cadastros/medicos`}>
+							<a className={ativo === "cadastros" ? "active" : ""}>
+								<i className="las la-users"></i>
+								Cadastros
+							</a>
+						</Link>
 					</li>
 					<li>
-						<a>
-							<i className="las la-hand-holding-usd"></i>
-							Financeiro
-						</a>
+						<Link href={`/financeiro`}>
+							<a className={ativo === "financeiro" ? "active" : ""}>
+								<i className="las la-hand-holding-usd"></i>
+								Financeiro
+							</a>
+						</Link>
 					</li>
 					<li>
-						<a>
-							<i className="las la-suitcase"></i>
-							Administração
-						</a>
+						<Link href={`/administracao`}>
+							<a className={ativo === "administracao" ? "active" : ""}>
+								<i className="las la-suitcase"></i>
+								Administração
+							</a>
+						</Link>
 					</li>
 				</ul>
 			</div>
@@ -109,15 +120,17 @@ const Sidebar = styled.aside`
 
 		a {
 			display: block;
-			font-size: 1.1rem;
+			font-size: 1rem;
+			text-decoration: none;
+			color: var(--color-dark);
 			&:first-child {
 				font-size: 1.2rem;
 				padding-right: 1.5rem;
 			}
 			&:hover {
 				background-color: var(--text-grey);
-				padding-top: 1rem;
-				padding-bottom: 1rem;
+				/* padding-top: 1rem; */
+				/* padding-bottom: 1rem; */
 				color: var(--white);
 				border-radius: 1rem 0 0 1rem;
 			}

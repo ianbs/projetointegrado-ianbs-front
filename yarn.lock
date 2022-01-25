@@ -1756,10 +1756,15 @@ react-dom@17.0.2:
     object-assign "^4.1.1"
     scheduler "^0.20.2"
 
-react-is@17.0.2:
+react-is@17.0.2, "react-is@^16.12.0 || ^17.0.0":
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
+
+react-is@18.0.0-rc.0-next-529dc3ce8-20220124:
+  version "18.0.0-rc.0-next-529dc3ce8-20220124"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.0.0-rc.0-next-529dc3ce8-20220124.tgz#2c69951cd7969384df0c99d47df493f22eada804"
+  integrity sha512-yiRgqifew3mMdWqIlHGuoSkpUb6IwOxYrCpmF+UHDWBboqJbYH1ArEAGA48tMmGkodlc0hisOO4kUgcMb04bjw==
 
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
@@ -1770,6 +1775,24 @@ react-refresh@0.8.3:
   version "0.8.3"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.8.3.tgz#721d4657672d400c5e3c75d063c4a85fb2d5d68f"
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
+
+react-shallow-renderer@^16.13.1:
+  version "16.14.1"
+  resolved "https://registry.yarnpkg.com/react-shallow-renderer/-/react-shallow-renderer-16.14.1.tgz#bf0d02df8a519a558fd9b8215442efa5c840e124"
+  integrity sha512-rkIMcQi01/+kxiTE9D3fdS959U1g7gs+/rborw++42m1O9FAQiNI/UNRZExVUoAOprn4umcXf+pFRou8i4zuBg==
+  dependencies:
+    object-assign "^4.1.1"
+    react-is "^16.12.0 || ^17.0.0"
+
+react-test-renderer@^18.0.0-rc.0-next-529dc3ce8-20220124:
+  version "18.0.0-rc.0-next-529dc3ce8-20220124"
+  resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-18.0.0-rc.0-next-529dc3ce8-20220124.tgz#a3876a96a6e56639de299c1c6ae23bcd81472f99"
+  integrity sha512-cDOKQUBXea6T7hC04DGBPMEi4YYENo5qoUpKi79mIlB8pOBl7E3j61fSqFcD4VlpbxDCI0/Ok+13OPw182SqFg==
+  dependencies:
+    object-assign "^4.1.1"
+    react-is "18.0.0-rc.0-next-529dc3ce8-20220124"
+    react-shallow-renderer "^16.13.1"
+    scheduler "0.21.0-rc.0-next-529dc3ce8-20220124"
 
 react@17.0.2:
   version "17.0.2"
@@ -1856,6 +1879,14 @@ safe-buffer@~5.1.1:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
   integrity sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==
+
+scheduler@0.21.0-rc.0-next-529dc3ce8-20220124:
+  version "0.21.0-rc.0-next-529dc3ce8-20220124"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.21.0-rc.0-next-529dc3ce8-20220124.tgz#cecdf13a293efeb1f41bdfb35f17d2c5f59ef665"
+  integrity sha512-K2mur7PGzYpNJEAblbz5g7+0X0xaSPBNVLfAbSCZo56n4DliHoF4YJ7CQZu43MMv7lTQtSGCkFshuP92ZWRNGw==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
 
 scheduler@^0.20.2:
   version "0.20.2"
