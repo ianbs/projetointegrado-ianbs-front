@@ -76,14 +76,14 @@ export default function Home() {
 						</div>
 						<div className="grid-next-pacients">
 							<div className="pacients">
-								<div className="card">
-									<div className="card-header">
+								<div className="p-card">
+									<div className="p-card-header">
 										<h2>Próximos Pacientes</h2>
 										<button>
 											Ver todos <i className="lar la-eye"></i>
 										</button>
 									</div>
-									<div className="card-body">
+									<div className="p-card-body">
 										<table width="100%">
 											<thead>
 												<tr>
@@ -117,11 +117,11 @@ export default function Home() {
 					</div>
 					<div className="grid-calendar">
 						<div className="calendar">
-							<div className="card">
-								<div className="card-header">
+							<div className="c-card">
+								<div className="c-card-header">
 									<h2>Agenda - {actualMonth()}</h2>
 								</div>
-								<div className="card-body">
+								<div className="c-card-body">
 									<div className="month">
 										{allDays.map((item) => (
 											<>
@@ -211,8 +211,8 @@ const MainContent = styled.main`
 			background-color: var(--white);
 			padding: 1rem;
 
-			.card {
-				.card-header {
+			.p-card {
+				.p-card-header {
 					display: flex;
 					justify-content: space-between;
 					align-items: center;
@@ -241,12 +241,12 @@ const MainContent = styled.main`
 		display: flex;
 		margin-top: 1.5rem;
 		justify-content: space-between;
-		.card-header {
+		.c-card-header {
 			display: inline-flex;
 			align-items: center;
 			margin-bottom: 1rem;
 		}
-		.card-body {
+		.c-card-body {
 			height: 40vh;
 			width: 100%;
 			overflow-y: scroll;

@@ -3,12 +3,12 @@ import styled from "styled-components";
 export default function HeaderComponent({ title }) {
 	return (
 		<Header>
-			<h1>
+			<h4>
 				<label>
 					<i className="las la-bars"></i>
 					{title}
 				</label>
-			</h1>
+			</h4>
 			<div className="right-header">
 				<div className="notification-wrapper">
 					<i className="las la-bell"></i>
