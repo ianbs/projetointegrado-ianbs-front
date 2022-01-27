@@ -13,7 +13,7 @@ import Modal from "./Components/Modal";
 export default function Home() {
 	const [allDays, setAllDays] = useState([]);
 	const [showModal, setShowModal] = useState(false);
-	const [modalDay, setModalDay] = useState();
+	const [modalDay, setModalDay] = useState(new Date());
 
 	const handleMonth = () => {
 		const result = eachDayOfInterval({
@@ -132,17 +132,17 @@ export default function Home() {
 												></Day>
 											</>
 										))}
+										<Modal
+											day={modalDay}
+											showModal={showModal}
+											setShowModal={setShowModal}
+										></Modal>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</MainContent>
-				<Modal
-					day={modalDay}
-					showModal={showModal}
-					setShowModal={setShowModal}
-				></Modal>
 			</Main>
 			<footer className=""></footer>
 		</div>

@@ -63,9 +63,18 @@ export default function Consultas() {
 		},
 	]);
 	const [showModal, setShowModal] = useState(false);
+	const [tipoModal, setTipoModal] = useState("");
+	const [itemModal, setItemModal] = useState([]);
 
 	const handleClickNovoAtendimento = () => {
 		setShowModal(!showModal);
+		setTipoModal("create");
+	};
+
+	const handleClickAlterarAtendimento = (item) => {
+		setShowModal(!showModal);
+		setTipoModal("alter");
+		setItemModal(item);
 	};
 
 	return (
@@ -149,6 +158,7 @@ export default function Consultas() {
 													<button
 														type="button"
 														className="btn btn-outline-secondary"
+														onClick={() => handleClickAlterarAtendimento(item)}
 													>
 														Editar Atendimento
 													</button>
@@ -166,6 +176,8 @@ export default function Consultas() {
 							</div>
 						</div>
 						<FormModal
+							tipo={tipoModal}
+							item={itemModal}
 							showModal={showModal}
 							setShowModal={setShowModal}
 						></FormModal>
@@ -181,7 +193,7 @@ export async function getServerSideProps(ctx) {
 	const cookies = parseCookies(ctx);
 	const token = JSON.parse(cookies.user_token);
 	const { isAuth } = token;
-	console.log();
+	console.log(isAuth);
 	if (!isAuth) {
 		return {
 			redirect: {
