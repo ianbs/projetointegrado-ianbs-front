@@ -6,6 +6,7 @@ import styled from "styled-components";
 export default function SidebarComponent({ ativo, subitem }) {
 	const [atendimentoCollapse, setAtendimentoCollapse] = useState(false);
 	const [cadastroCollapse, setCadastroCollapse] = useState(false);
+	const [financeiroCollapse, setFinanceiroCollapse] = useState(false);
 
 	return (
 		<Sidebar>
@@ -33,6 +34,7 @@ export default function SidebarComponent({ ativo, subitem }) {
 								onClick={() => {
 									setAtendimentoCollapse(false);
 									setCadastroCollapse(false);
+									setFinanceiroCollapse(false);
 								}}
 								className={ativo === "inicio" ? "active" : ""}
 							>
@@ -46,6 +48,7 @@ export default function SidebarComponent({ ativo, subitem }) {
 							onClick={() => {
 								setAtendimentoCollapse(true);
 								setCadastroCollapse(false);
+								setFinanceiroCollapse(false);
 							}}
 							className={ativo === "atendimento" ? "active" : ""}
 						>
@@ -83,6 +86,7 @@ export default function SidebarComponent({ ativo, subitem }) {
 							onClick={() => {
 								setCadastroCollapse(true);
 								setAtendimentoCollapse(false);
+								setFinanceiroCollapse(false);
 							}}
 							className={ativo === "cadastros" ? "active" : ""}
 						>
@@ -131,12 +135,45 @@ export default function SidebarComponent({ ativo, subitem }) {
 						</ul>
 					</li>
 					<li>
-						<Link href={`/financeiro`}>
-							<a className={ativo === "financeiro" ? "active" : ""}>
-								<i className="las la-hand-holding-usd"></i>
-								Financeiro
-							</a>
-						</Link>
+						<a
+							onClick={() => {
+								setCadastroCollapse(false);
+								setAtendimentoCollapse(false);
+								setFinanceiroCollapse(true);
+							}}
+							className={ativo === "financeiro" ? "active" : ""}
+						>
+							<i className="las la-hand-holding-usd"></i>
+							Financeiro
+						</a>
+						<ul
+							className={
+								financeiroCollapse ? "subitem-menu show" : "subitem-menu hidden"
+							}
+						>
+							<li>
+								<Link href={`/financeiro/consultas`}>
+									<a
+										className={
+											subitem === "faturaconsulta" ? "sub-item-active" : ""
+										}
+									>
+										Faturar Consultas
+									</a>
+								</Link>
+							</li>
+							<li>
+								<Link href={`/financeiro/exames`}>
+									<a
+										className={
+											subitem === "faturaexames" ? "sub-item-active" : ""
+										}
+									>
+										Faturar Exames
+									</a>
+								</Link>
+							</li>
+						</ul>
 					</li>
 					<li>
 						<Link href={`/administracao`}>
