@@ -27,7 +27,7 @@ export default function Usuarios() {
 }
 
 const Main = styled.main`
-	margin-left: 345px;
+	margin-left: 260px;
 `;
 
 const MainContent = styled.main`
@@ -35,4 +35,14 @@ const MainContent = styled.main`
 	padding: 2rem 1.5rem;
 	background: var(--white);
 	min-height: calc(100vh - 90px);
+	display: flex;
+	.card {
+		width: 100%;
+	}
+	.list-search {
+		height: 70vh;
+	}
+	.btn-group {
+		width: 100%;
+	}
 `;

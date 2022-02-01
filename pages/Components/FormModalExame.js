@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 
-const FormModal = ({ item, tipo, showModal, setShowModal }) => {
+const FormModalExames = ({ item, tipo, showModal, setShowModal }) => {
 	const handleCloseClick = (e) => {
 		e.preventDefault();
 		setShowModal(!showModal);
@@ -18,7 +18,7 @@ const FormModal = ({ item, tipo, showModal, setShowModal }) => {
 				<div className="modal-content">
 					<div className="modal-header">
 						{tipo === "create" ? "Novo" : ""}
-						{tipo === "alter" ? "Alterar" : ""} Atendimento - Consulta
+						{tipo === "alter" ? "Alterar" : ""} Atendimento - Exames
 						<span onClick={handleCloseClick}>X</span>
 					</div>
 					<div className="modal-body">
@@ -30,7 +30,7 @@ const FormModal = ({ item, tipo, showModal, setShowModal }) => {
 									</label>
 									<input
 										type="text"
-										className="form-control"
+										className="form-control form-control-sm"
 										id="inputEmail4"
 									/>
 								</div>
@@ -40,7 +40,7 @@ const FormModal = ({ item, tipo, showModal, setShowModal }) => {
 									</label>
 									<input
 										type="text"
-										className="form-control"
+										className="form-control form-control-sm"
 										id="inputPassword4"
 									/>
 								</div>
@@ -50,7 +50,7 @@ const FormModal = ({ item, tipo, showModal, setShowModal }) => {
 									</label>
 									<input
 										type="email"
-										className="form-control"
+										className="form-control form-control-sm"
 										id="inputEmail4"
 									/>
 								</div>
@@ -60,7 +60,7 @@ const FormModal = ({ item, tipo, showModal, setShowModal }) => {
 									</label>
 									<input
 										type="password"
-										className="form-control"
+										className="form-control form-control-sm"
 										id="inputPassword4"
 									/>
 								</div>
@@ -70,7 +70,7 @@ const FormModal = ({ item, tipo, showModal, setShowModal }) => {
 									</label>
 									<input
 										type="text"
-										className="form-control"
+										className="form-control form-control-sm"
 										id="inputAddress"
 									/>
 								</div>
@@ -80,7 +80,7 @@ const FormModal = ({ item, tipo, showModal, setShowModal }) => {
 									</label>
 									<input
 										type="text"
-										className="form-control"
+										className="form-control form-control-sm"
 										id="inputAddress2"
 									/>
 								</div>
@@ -90,7 +90,7 @@ const FormModal = ({ item, tipo, showModal, setShowModal }) => {
 									</label>
 									<input
 										type="text"
-										className="form-control"
+										className="form-control form-control-sm"
 										id="inputAddress2"
 									/>
 								</div>
@@ -100,23 +100,31 @@ const FormModal = ({ item, tipo, showModal, setShowModal }) => {
 									</label>
 									<input
 										type="text"
-										className="form-control"
+										className="form-control form-control-sm"
 										id="inputAddress2"
 									/>
 								</div>
 								<div className="col-md-12 mb-2">
-									<label htmlFor="inputPassword4" className="form-label">
-										Procedimento
+									<label htmlFor="exampleDataList" className="form-label">
+										Procedimentos
 									</label>
-									<select
-										className="form-select"
-										aria-label=".form-select-sm example"
+									<div className="input-group mb-3 dropdown">
+										<input
+											type="text"
+											className="form-control form-control-sm"
+											id="inputAddress2"
+										/>
+									</div>
+									<ol
+										className="list-group list-group-flush list-group-numbered overflow-auto border"
+										style={{ height: "10vh" }}
 									>
-										<option selected>Selecione o procedimento</option>
-										<option value="1">10101012 - Consulta Clinica Geral</option>
-										<option value="2">10101012 - Consulta Pediatra</option>
-										<option value="3">10101012 - Consulta Psicologia</option>
-									</select>
+										<li className="list-group-item">An item</li>
+										<li className="list-group-item">A second item</li>
+										<li className="list-group-item">A third item</li>
+										<li className="list-group-item">A fourth item</li>
+										<li className="list-group-item">And a fifth one</li>
+									</ol>
 								</div>
 								<div className="modal-footer">
 									<div className="d-grid col-12">
@@ -235,20 +243,26 @@ const FormModal = ({ item, tipo, showModal, setShowModal }) => {
 									/>
 								</div>
 								<div className="col-md-12 mb-2">
-									<label htmlFor="inputPassword4" className="form-label">
-										Procedimento
+									<label htmlFor="exampleDataList" className="form-label">
+										Procedimentos
 									</label>
-									<select
-										className="form-select"
-										aria-label=".form-select-sm example"
+									<div className="input-group mb-3 dropdown">
+										<input
+											type="text"
+											className="form-control form-control-sm"
+											id="inputAddress2"
+										/>
+									</div>
+									<ol
+										className="list-group list-group-flush list-group-numbered overflow-auto border"
+										style={{ height: "10vh" }}
 									>
-										<option>Selecione o procedimento</option>
-										<option value="1">10101012 - Consulta Clinica Geral</option>
-										<option value="2" selected>
-											10101012 - Consulta Pediatra
-										</option>
-										<option value="3">10101012 - Consulta Psicologia</option>
-									</select>
+										<li className="list-group-item">An item</li>
+										<li className="list-group-item">A second item</li>
+										<li className="list-group-item">A third item</li>
+										<li className="list-group-item">A fourth item</li>
+										<li className="list-group-item">And a fifth one</li>
+									</ol>
 								</div>
 								<div className="modal-footer">
 									<div className="d-grid col-12">
@@ -296,4 +310,4 @@ const ModalStyle = styled.div`
 	background-color: rgba(0, 0, 0, 0.3);
 `;
 
-export default FormModal;
+export default FormModalExames;

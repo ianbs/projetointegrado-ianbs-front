@@ -210,6 +210,7 @@ const Sidebar = styled.aside`
 			.subitem-menu {
 				width: 100%;
 				height: 100%;
+				overflow: hidden;
 				a {
 					padding-top: 0.8rem;
 					padding-bottom: 0.8rem;
