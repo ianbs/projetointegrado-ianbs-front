@@ -8,21 +8,21 @@ import HeadPage from "../Components/Head";
 import SidebarComponent from "../Components/Sidebar";
 import HeaderComponent from "../Components/Header";
 
-export default function Exames() {
+export default function Permissoes() {
   const router = useRouter();
 
   return (
     <div className="">
-      <HeadPage pageTitle={"[Financeiro]"} />
+      <HeadPage pageTitle={"[Permissoes]"} />
       <SidebarComponent
-        ativo={"financeiro"}
-        subitem={"faturaexames"}
+        ativo={"administracao"}
+        subitem={"permissoes"}
       ></SidebarComponent>
       <Main>
-        <HeaderComponent
-          title={"Financeiro - Faturamento - Exames"}
-        ></HeaderComponent>
-        <MainContent>Faturamento Exames</MainContent>
+        <HeaderComponent title={"Permissoes - Usuários"}></HeaderComponent>
+        <MainContent>
+         
+        </MainContent>
       </Main>
     </div>
   );

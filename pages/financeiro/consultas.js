@@ -9,42 +9,42 @@ import SidebarComponent from "../Components/Sidebar";
 import HeaderComponent from "../Components/Header";
 
 export default function Consultas() {
-	const router = useRouter();
+  const router = useRouter();
 
-	return (
-		<div className="">
-			<HeadPage pageTitle={"[Financeiro]"} />
-			<SidebarComponent
-				ativo={"financeiro"}
-				subitem={"faturaconsulta"}
-			></SidebarComponent>
-			<Main>
-				<HeaderComponent
-					title={"Financeiro - Faturamento - Consultas"}
-				></HeaderComponent>
-				<MainContent>Faturamento Consultas</MainContent>
-			</Main>
-		</div>
-	);
+  return (
+    <div className="">
+      <HeadPage pageTitle={"[Financeiro]"} />
+      <SidebarComponent
+        ativo={"financeiro"}
+        subitem={"faturaconsulta"}
+      ></SidebarComponent>
+      <Main>
+        <HeaderComponent
+          title={"Financeiro - Faturamento - Consultas"}
+        ></HeaderComponent>
+        <MainContent>Faturamento Consultas</MainContent>
+      </Main>
+    </div>
+  );
 }
 
 const Main = styled.main`
-	margin-left: 260px;
+  margin-left: 260px;
 `;
 
 const MainContent = styled.main`
-	margin-top: 80px;
-	padding: 2rem 1.5rem;
-	background: var(--white);
-	min-height: calc(100vh - 90px);
-	display: flex;
-	.card {
-		width: 100%;
-	}
-	.list-search {
-		height: 70vh;
-	}
-	.btn-group {
-		width: 100%;
-	}
+  margin-top: 80px;
+  padding: 2rem 1.5rem;
+  background: var(--white);
+  min-height: calc(100vh - 90px);
+  display: flex;
+  .card {
+    width: 100%;
+  }
+  .list-search {
+    height: 70vh;
+  }
+  .btn-group {
+    width: 100%;
+  }
 `;
