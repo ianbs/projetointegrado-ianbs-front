@@ -1,41 +1,29 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
-import nookies, { parseCookies } from "nookies";
+import { parseCookies } from "nookies";
 
-import HeadPage from "../Components/Head";
-import SidebarComponent from "../Components/Sidebar";
-import HeaderComponent from "../Components/Header";
-import { api } from "../../services/api";
+import HeadPage from "../../../src/Components/Head";
+import SidebarComponent from "../../../src/Components/SideMenu/Sidebar";
+import HeaderComponent from "../../../src/Components/Header";
 
-export default function Usuarios() {
+export default function Pacientes() {
   const router = useRouter();
-  const [users, setUsers] = useState();
-
-  const handleUsuarios = async () => {
-    api.get("/api/usuario/all").then((data) => {
-      console.log(data);
-    });
-  };
-
-  useEffect(() => {
-    handleUsuarios();
-  }, []);
 
   return (
     <div className="">
-      <HeadPage pageTitle={"[Usuários]"} />
+      <HeadPage pageTitle={"[Pacientes]"} />
       <SidebarComponent
         ativo={"cadastros"}
-        subitem={"usuarios"}
+        subitem={"pacientes"}
       ></SidebarComponent>
       <Main>
-        <HeaderComponent title={"Cadastros - Usuários"}></HeaderComponent>
+        <HeaderComponent title={"Cadastros - Pacientes"}></HeaderComponent>
         <MainContent>
           <div className="card">
             <div className="card-body">
-              <h6 className="mb-4">Formulário de Cadastro de Usuários</h6>
+              <h6 className="mb-4">Formulário de Cadastro de Pacientes</h6>
               <div className="list-search overflow-auto border-top">
                 <div className="mb-1 col">
                   <label
@@ -56,7 +44,7 @@ export default function Usuarios() {
                     htmlFor="inputAddress2"
                     className="form-label form-label-sm"
                   >
-                    Email
+                    CPF
                   </label>
                   <input
                     type="text"
@@ -69,7 +57,7 @@ export default function Usuarios() {
                     htmlFor="inputAddress2"
                     className="form-label form-label-sm"
                   >
-                    Senha
+                    RG
                   </label>
                   <input
                     type="text"
@@ -82,17 +70,26 @@ export default function Usuarios() {
                     htmlFor="inputAddress2"
                     className="form-label form-label-sm"
                   >
-                    Tipo
+                    CNS
                   </label>
-                  <select
-                    className="form-select"
-                    aria-label="Default select example"
+                  <input
+                    type="text"
+                    className="form-control form-control-sm"
+                    id="inputAddress2"
+                  />
+                </div>
+                <div className="mb-1 col">
+                  <label
+                    htmlFor="inputAddress2"
+                    className="form-label form-label-sm"
                   >
-                    <option selected>Tipo de Usuário</option>
-                    <option value="1">Super Admin</option>
-                    <option value="2">Médico</option>
-                    <option value="3">Atendente</option>
-                  </select>
+                    Data de Nascimento
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control form-control-sm"
+                    id="inputAddress2"
+                  />
                 </div>
 
                 <div
@@ -136,13 +133,13 @@ export default function Usuarios() {
                   >
                     <div className="d-flex w-100 justify-content-between align-items-center">
                       <h6 className="mb-1">
-                        <label>Nome: Jonh Doe</label>
+                        <label>Nome: Fulano</label>
                       </h6>
                       {/* <p>Data de cadastro: {format(new Date(), "dd/mm/yyyy")}</p> */}
                     </div>
                     <div className="d-flex w-100 justify-content-between align-items-center">
                       <p className="mb-1">
-                        <label>Tipo: Super Admin</label>
+                        <label>CPF: 111.111.111-11</label>
                         <br />
                       </p>
                       <small>
@@ -179,6 +176,7 @@ export default function Usuarios() {
 
 export async function getServerSideProps(ctx) {
   const { projintegtoken: token } = parseCookies(ctx);
+
   if (!token) {
     return {
       redirect: {

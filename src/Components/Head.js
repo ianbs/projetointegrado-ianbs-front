@@ -10,6 +10,10 @@ export default function HeadPage({ pageTitle }) {
         name="description"
         content="SGCC - Sistema de Gestão de Clinica e Consultórios"
       />
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      />
 
       <link
         rel="stylesheet"

@@ -6,9 +6,9 @@ import { parseCookies } from "nookies";
 
 import styled from "styled-components";
 
-import HeadPage from "../Components/Head";
-import SidebarComponent from "../Components/Sidebar";
-import HeaderComponent from "../Components/Header";
+import HeadPage from "../../../src/Components/Head";
+import SidebarComponent from "../../../src/Components/SideMenu/Sidebar";
+import HeaderComponent from "../../../src/Components/Header";
 
 export default function Medico() {
   const router = useRouter();

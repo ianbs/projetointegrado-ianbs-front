@@ -8,19 +8,10 @@ export const AuthContext = createContext({});
 
 export function AuthProvider({ children }) {
   const isAuthenticated = false;
-
-  //   const [user, setUser] = useState()
-
-  //   useEffect(() => {
-  //     const { projintegtoken: token } = parseCookies();
-
-  //     if (token) {
-  //       console.log(token);
-  //     }
-  //   }, []);
+  const collapsed = true;
 
   async function login({ username, password }) {
-    await fetch("https://projetointegrado-ianbs.herokuapp.com/login", {
+    await fetch("https://projetointegrado-ianbs.herokuapp.com/api/login", {
       method: "POST",
       mode: "cors",
       headers: {
@@ -37,7 +28,15 @@ export function AuthProvider({ children }) {
         setCookie(undefined, "projintegtoken", data.token, {
           maxAge: 60 * 60 * 60,
         });
+        setCookie(undefined, "username", data.usuario.nome, {
+          maxAge: 60 * 60 * 60,
+        });
+        setCookie(undefined, "userid", data.usuario.id, {
+          maxAge: 60 * 60 * 60,
+        });
         api.defaults.headers["Authorization"] = `Bearer ${data.token}`;
+        setUser(data.usuario);
+        // console.log(data.user);
       })
       .catch((err) => console.error(err));
 
@@ -45,7 +44,7 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, collapsed }}>
       {children}
     </AuthContext.Provider>
   );

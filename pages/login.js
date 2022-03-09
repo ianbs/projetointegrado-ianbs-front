@@ -1,41 +1,34 @@
-import Image from "next/image";
-import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import nookies, { setCookie } from "nookies";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
-import HeadPage from "./Components/Head";
+import HeadPage from "../src/Components/Head";
 import { AuthContext } from "../contexts/AuthContext";
 
+const schema = yup
+  .object({
+    username: yup.string().required(),
+    password: yup.string().required(),
+  })
+  .required();
+
 export default function Login() {
-  const { register, handleSubmit } = useForm();
-  const { isAuthenticated, login } = useContext(AuthContext);
-  const router = useRouter();
-  //   const [username, setUsername] = useState("");
-  //   const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+  const { login } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async (data) => {
-    // console.log(data.username);
-    // console.log(isAuthenticated);
+    setLoading(true);
     await login(data);
-    // e.preventDefault();
-    // console.log(username === "admin" && password === "admin");
-    // if (username == "admin" && password == "admin") {
-    //   //   nookies.set(ctx, "fromClient", JSON.stringify({ isAuth: true }), {
-    //   //     maxAge: 30 * 24 * 60 * 60,
-    //   //     path: "/",
-    //   //     sameSite: true,
-    //   //   });
-    //   setCookie(null, "user_token", JSON.stringify({ isAuth: true }), {
-    //     maxAge: 30 * 24 * 60 * 60,
-    //     path: "/",
-    //     sameSite: true,
-    //   });
-    //   router.push({ pathname: "/" });
-    // } else {
-    //   router.push({ pathname: "/login" });
-    // }
+    setLoading(false);
   };
 
   return (
@@ -54,25 +47,40 @@ export default function Login() {
               <h1>Login</h1>
               <form onSubmit={handleSubmit(handleLogin)}>
                 <div>
+                  <p className="invalid-feedback">{errors.username?.message}</p>
                   <input
                     {...register("username")}
                     type="text"
-                    // onChange={(e) => setUsername(e.target.value)}
                     name="username"
                     autoFocus
+                    placeholder="Usuário"
                   />
                 </div>
                 <div>
+                  <p className="invalid-feedback">{errors.password?.message}</p>
                   <input
                     {...register("password")}
                     type="password"
-                    // onChange={(e) => setPassword(e.target.value)}
                     name="password"
                     autoComplete="current-password"
+                    placeholder="Senha"
                   />
                 </div>
                 <div>
-                  <button type="submit">Login</button>
+                  {loading ? (
+                    <button className="btn btn-primary" type="button" disabled>
+                      <span
+                        className="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                      Loading...
+                    </button>
+                  ) : (
+                    <button className="btn btn-primary" type="submit">
+                      Login
+                    </button>
+                  )}
                 </div>
               </form>
             </div>

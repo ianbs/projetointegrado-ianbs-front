@@ -5,7 +5,7 @@ import styled from "styled-components";
 // import nookies, { parseCookies } from "nookies";
 
 import HeadPage from "../Components/Head";
-import SidebarComponent from "../Components/Sidebar";
+import SidebarComponent from "../Components/SideMenu/SideMenu/Sidebar";
 import HeaderComponent from "../Components/Header";
 
 export default function Exames() {

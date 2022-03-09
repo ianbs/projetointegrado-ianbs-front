@@ -5,7 +5,7 @@ import styled from "styled-components";
 // import nookies, { parseCookies } from "nookies";
 
 import HeadPage from "../Components/Head";
-import SidebarComponent from "../Components/Sidebar";
+import SidebarComponent from "../Components/SideMenu/SideMenu/Sidebar";
 import HeaderComponent from "../Components/Header";
 
 export default function Permissoes() {
@@ -13,16 +13,16 @@ export default function Permissoes() {
 
   return (
     <div className="">
-      <HeadPage pageTitle={"[Permissoes]"} />
+      <HeadPage pageTitle={"[Adminisração]"} />
       <SidebarComponent
         ativo={"administracao"}
-        subitem={"permissoes"}
+        subitem={"faturaexames"}
       ></SidebarComponent>
       <Main>
-        <HeaderComponent title={"Permissoes - Usuários"}></HeaderComponent>
-        <MainContent>
-         
-        </MainContent>
+        <HeaderComponent
+          title={"Financeiro - Faturamento - Exames"}
+        ></HeaderComponent>
+        <MainContent>Faturamento Exames</MainContent>
       </Main>
     </div>
   );

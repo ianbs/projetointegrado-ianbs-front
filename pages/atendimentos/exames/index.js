@@ -5,10 +5,10 @@ import styled from "styled-components";
 import { format } from "date-fns";
 import nookies, { parseCookies } from "nookies";
 
-import HeadPage from "../Components/Head";
-import SidebarComponent from "../Components/Sidebar";
-import HeaderComponent from "../Components/Header";
-import FormModalExames from "../Components/FormModalExame";
+import HeadPage from "../../../src/Components/Head";
+import SidebarComponent from "../../../src/Components/Sidebar";
+import HeaderComponent from "../../../src/Components/Header";
+import FormModalExames from "../../../src/Components/FormModalExame";
 
 export default function Exames() {
   const [exames, setExames] = useState([

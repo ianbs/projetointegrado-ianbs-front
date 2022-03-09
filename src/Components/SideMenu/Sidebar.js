@@ -1,13 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { parseCookies } from "nookies";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import { AuthContext } from "../../../contexts/AuthContext";
+import NavBarItem from "./NavBarItem";
+import SidebarData from "./SidebarData";
 
-export default function SidebarComponent({ ativo, subitem }) {
-  const [atendimentoCollapse, setAtendimentoCollapse] = useState(false);
-  const [cadastroCollapse, setCadastroCollapse] = useState(false);
-  const [financeiroCollapse, setFinanceiroCollapse] = useState(false);
-  const [administracaoCollapse, setAdministracaoCollapse] = useState(false);
+export default function SidebarComponent({ ativo, subitem, user }) {
+  const [username, setUsername] = useState("");
+  const context = useContext(AuthContext);
+
+  useEffect(() => {
+    const { username } = parseCookies(context);
+    setUsername(username);
+  }, [username, context]);
 
   return (
     <Sidebar>
@@ -18,16 +25,22 @@ export default function SidebarComponent({ ativo, subitem }) {
       </div>
       <div className="sidebar-profile">
         <Image
-          src="https://randomuser.me/api/portraits/men/73.jpg"
-          width={"100px"}
-          height={"100px"}
+          src="https://avatars.dicebear.com/api/pixel-art-neutral/medic.svg"
+          width={"80px"}
+          height={"80px"}
           className="profile-photo"
           alt="profile photo"
         ></Image>
-        <h3>Jonh Doe</h3>
+        <h5>{username}</h5>
+
         <small>Super Admin</small>
       </div>
-      <div className="sidebar-menu">
+      <ul className="sidebar-list nav flex-column">
+        {SidebarData.map((item, key) => (
+          <NavBarItem key={key} ativo={ativo} item={item} />
+        ))}
+      </ul>
+      {/* <div className="sidebar-menu">
         <ul>
           <li>
             <Link href={`/`}>
@@ -128,11 +141,13 @@ export default function SidebarComponent({ ativo, subitem }) {
                 </Link>
               </li>
               <li>
-                <Link href={`/cadastros/usuarios`}>
+                <Link href={`/cadastros/colaborador`}>
                   <a
-                    className={subitem === "usuarios" ? "sub-item-active" : ""}
+                    className={
+                      subitem === "colaborador" ? "sub-item-active" : ""
+                    }
                   >
-                    Usuários
+                    Colaborador
                   </a>
                 </Link>
               </li>
@@ -214,7 +229,7 @@ export default function SidebarComponent({ ativo, subitem }) {
             </ul>
           </li>
         </ul>
-      </div>
+      </div> */}
     </Sidebar>
   );
 }
@@ -226,7 +241,7 @@ const Sidebar = styled.aside`
   top: 0;
   height: 100%;
   background: var(--main-color);
-  z-index: 100;
+  /* z-index: 10; */
   .sidebar-profile {
     text-align: center;
     margin-bottom: 1.5rem;
@@ -241,10 +256,10 @@ const Sidebar = styled.aside`
   }
 
   .sidebar-brand {
-    height: 80px;
+    height: 70px;
     padding: 1rem 0rem 1rem 1rem;
     text-align: center;
-    font-size: 1.5rem;
+    /* font-size: 1.2rem; */
     border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 
     span {
@@ -253,13 +268,86 @@ const Sidebar = styled.aside`
     }
   }
 
-  .sidebar-menu {
+  .hidden {
+    display: none;
+    visibility: collapse;
+  }
+
+  .show {
+    display: block;
+    visibility: visible;
+  }
+
+  .active {
+    background: var(--text-grey);
+  }
+
+  .sidebar-list {
+    height: auto;
+    width: 100%;
+    padding: 0;
+    .row {
+      margin: 0%;
+      width: 100%;
+      height: 60px;
+      display: flex;
+      color: var(--color-dark);
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        cursor: pointer;
+        background-color: var(--text-grey);
+        color: var(--white);
+      }
+
+      .nav-icon {
+        width: 30px;
+        height: 30px;
+        flex: 30%;
+        display: grid;
+        place-items: center;
+      }
+      .nav-title {
+        flex: 70%;
+      }
+    }
+
+    .nav-subitem {
+      margin: 0%;
+      width: 100%;
+      background-color: var(--text-grey);
+      height: 60px;
+      display: flex;
+      color: white;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        background-color: var(--text-grey);
+        color: var(--white);
+      }
+
+      .nav-icon {
+        width: 30px;
+        height: 30px;
+        flex: 30%;
+        display: grid;
+        place-items: center;
+      }
+      .nav-title {
+        flex: 70%;
+      }
+    }
+  }
+
+  /* .sidebar-menu {
     margin-top: 1rem;
-    font-size: 1rem;
+    
     overflow: hidden;
     li {
       width: 100%;
-      /* margin-bottom: 1rem; */
+      
 
       padding-left: 1rem;
       .active {
@@ -287,10 +375,12 @@ const Sidebar = styled.aside`
 
     .hidden {
       display: none;
+      visibility: collapse;
     }
 
     .show {
       display: block;
+      visibility: visible;
     }
 
     a {
@@ -302,7 +392,7 @@ const Sidebar = styled.aside`
       color: var(--color-dark);
       &:first-child {
         font-size: 1rem;
-        padding-right: 1.5rem;
+        /* padding-right: 1.5rem;
       }
       &:hover {
         background-color: var(--text-grey);
@@ -318,5 +408,5 @@ const Sidebar = styled.aside`
         padding-right: 1.5rem;
       }
     }
-  }
+  } */
 `;
