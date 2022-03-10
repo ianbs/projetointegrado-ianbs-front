@@ -1,18 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap");
-@import "react-big-calendar/lib/css/react-big-calendar.css";
 
 :root {
-  --main-color: #a1f0eb;
-  --color-dark: #1d2231;
-  --text-grey: #8390a2;
-  --white: #fff;
+	--main-color: #a1f0eb;
+	--color-dark: #1d2231;
+	--text-grey: #8390a2;
+	--white: #fff;
 }
 
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  list-style-type: none;
-  text-decoration: none;
-  font-family: "Poppins", sans-serif;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	list-style-type: none;
+	text-decoration: none;
+	font-family: "Poppins", sans-serif;
 }

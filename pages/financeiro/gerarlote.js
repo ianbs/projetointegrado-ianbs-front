@@ -8,21 +8,21 @@ import HeadPage from "../../src/Components/Head";
 import SidebarComponent from "../../src/Components/SideMenu/Sidebar";
 import HeaderComponent from "../../src/Components/Header";
 
-export default function Permissoes() {
+export default function GerarLote() {
 	const router = useRouter();
 
 	return (
 		<div className="">
-			<HeadPage pageTitle={"[Adminisração]"} />
+			<HeadPage pageTitle={"[Financeiro]"} />
 			<SidebarComponent
-				ativo={"administracao"}
-				subitem={"faturaexames"}
+				ativo={"financeiro"}
+				subitem={"gerarlote"}
 			></SidebarComponent>
 			<Main>
 				<HeaderComponent
-					title={"Financeiro - Faturamento - Exames"}
+					title={"Financeiro - Faturamento - Consultas"}
 				></HeaderComponent>
-				<MainContent>Faturamento Exames</MainContent>
+				<MainContent>Faturamento Consultas</MainContent>
 			</Main>
 		</div>
 	);
