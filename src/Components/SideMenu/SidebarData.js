@@ -1,21 +1,13 @@
-import {
-	HowToReg,
-	LocalAtm,
-	MedicalServicesOutlined,
-	PeopleAltSharp,
-	Home,
-} from "@mui/icons-material";
-
 const SidebarData = [
 	{
 		title: "Inicio",
-		icon: <Home />,
+		icon: <i className="las la-home"></i>,
 		link: "/",
 		ativo: "inicio",
 	},
 	{
 		title: "Atendimentos",
-		icon: <MedicalServicesOutlined />,
+		icon: <i className="las la-laptop-medical"></i>,
 		ativo: "atendimentos",
 		subNav: [
 			{
@@ -30,7 +22,7 @@ const SidebarData = [
 	},
 	{
 		title: "Cadastros",
-		icon: <HowToReg />,
+		icon: <i className="las la-user"></i>,
 		ativo: "cadastros",
 		subNav: [
 			{
@@ -53,7 +45,7 @@ const SidebarData = [
 	},
 	{
 		title: "Financeiro",
-		icon: <LocalAtm />,
+		icon: <i className="las la-comments-dollar"></i>,
 		ativo: "financeiro",
 		subNav: [
 			{
@@ -64,7 +56,7 @@ const SidebarData = [
 	},
 	{
 		title: "Administração",
-		icon: <PeopleAltSharp />,
+		icon: <i className="las la-user-cog"></i>,
 		ativo: "administracao",
 		subNav: [
 			{

@@ -10,8 +10,6 @@
 	"dependencies": {
 		"@dicebear/avatars": "^4.10.2",
 		"@dicebear/croodles": "^4.10.2",
-		"@emotion/react": "^11.8.1",
-		"@emotion/styled": "^11.8.1",
 		"@hookform/resolvers": "^2.8.8",
 		"@mui/icons-material": "^5.4.4",
 		"@mui/material": "^5.4.4",
@@ -30,8 +28,7 @@
 	"devDependencies": {
 		"@svgr/webpack": "^6.2.1",
 		"eslint": "8.7.0",
-		"eslint-config-next": "12.0.8",
-		"react-test-renderer": "^18.0.0-rc.0-next-529dc3ce8-20220124"
+		"eslint-config-next": "12.0.8"
 	},
 	"resolutions": {
 		"styled-components": "^5"

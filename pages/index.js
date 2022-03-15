@@ -25,7 +25,6 @@ import AgendaModal from "../src/Components/AgendaModal";
 export default function Home() {
 	const { user } = useContext(AuthContext);
 	const [showModal, setShowModal] = useState(false);
-	const [showModalForm, setShowModalForm] = useState(false);
 
 	const [selectedDate, setSelectedDate] = useState(new Date());
 	const [activeDate, setActiveDate] = useState(new Date());
@@ -35,7 +34,7 @@ export default function Home() {
 		const weekDays = [];
 		for (let day = 0; day < 7; day++) {
 			weekDays.push(
-				<div className="week-name-day">
+				<div key={day} className="week-name-day">
 					{format(addDays(weekStartDate, day), "E", { locale: ptBR })}
 				</div>
 			);
@@ -50,6 +49,7 @@ export default function Home() {
 			const auxDate = currentDate;
 			week.push(
 				<div
+					key={currentDate}
 					className={`day ${
 						isSameMonth(currentDate, activeDate) ? "" : "inactiveDay"
 					} ${isSameDay(currentDate, selectedDate) ? "selectedDay" : ""} ${
@@ -83,31 +83,6 @@ export default function Home() {
 
 		return <div className="weekday-container">{allWeek}</div>;
 	};
-
-	const handleClickDay = () => {
-		setShowModal(!showModal);
-		// setModalDay(item);
-		// console.log(showModal);
-	};
-	const handleClickForm = (item) => {
-		setShowModalForm(!showModalForm);
-		setModalDay(item);
-		console.log(showModal);
-	};
-
-	// const nextMonth = (date) => {
-	//   setCalendarDay(addMonths(date, 1));
-	//   console.log(calendarDay);
-	// };
-
-	// const actualMonth = () => {
-	//   const month = calendarDay.toLocaleDateString("pt-BR", { month: "long" });
-	//   return month[0].toUpperCase() + month.substring(1).toLowerCase();
-	// };
-
-	// useEffect(() => {
-	//   handleMonth();
-	// }, [user]);
 
 	return (
 		<div className="">
