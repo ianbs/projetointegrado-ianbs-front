@@ -9,7 +9,6 @@ import nookies, { parseCookies } from "nookies";
 import HeadPage from "../../../src/Components/Head";
 import SidebarComponent from "../../../src/Components/SideMenu/Sidebar";
 import HeaderComponent from "../../../src/Components/Header";
-import FormModal from "../../../src/Components/FormModalConsulta";
 import Link from "next/link";
 
 export default function Consultas() {
@@ -147,6 +146,17 @@ export default function Consultas() {
 															role="group"
 															aria-label="Basic outlined example"
 														>
+															<Link
+																href={`/atendimentos/consultas/attend/${consulta.id}`}
+																replace
+															>
+																<a
+																	type="button"
+																	className="btn btn-outline-info"
+																>
+																	Atender
+																</a>
+															</Link>
 															<Link
 																href={`/atendimentos/consultas/edit/${consulta.id}`}
 																replace
