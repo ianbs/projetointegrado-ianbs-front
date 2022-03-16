@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/link-passhref */
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -9,6 +10,7 @@ import HeadPage from "../../../src/Components/Head";
 import SidebarComponent from "../../../src/Components/SideMenu/Sidebar";
 import HeaderComponent from "../../../src/Components/Header";
 import FormModal from "../../../src/Components/FormModalConsulta";
+import Link from "next/link";
 
 export default function Consultas() {
 	const [consultas, setConsultas] = useState([
@@ -77,110 +79,104 @@ export default function Consultas() {
 		setItemModal(item);
 	};
 
+	const deleteConsulta = () => {
+		console.log("delete");
+	};
+
 	return (
 		<div className="">
 			<HeadPage pageTitle={"[Consultas]"} />
 			<SidebarComponent
-				ativo={"atendimento"}
+				ativo={"atendimentos"}
 				subitem={"consulta"}
 			></SidebarComponent>
 			<Main>
 				<HeaderComponent title={"Atendimentos - Consultas"}></HeaderComponent>
 				<MainContent>
-					<div>
-						<div className="d-flex justify-content-between top-container">
-							<button
-								onClick={() => handleClickNovoAtendimento()}
-								type="button"
-								className="btn btn-outline-primary"
-							>
-								Novo Atendimento
+					<div className="d-flex justify-content-between top-container mb-4">
+						<Link href={`/atendimentos/consultas/add`} replace>
+							<button type="button" className="btn btn-sm btn-outline-primary">
+								Nova Consulta
 							</button>
-							<div className="d-flex justify-content-between mb-3">
+						</Link>
+					</div>
+					<div className="card">
+						<div className="card-body">
+							<div className="input-group mb-3">
 								<input
 									type="text"
-									className="form-control"
-									placeholder="Digite o que procurar..."
-									aria-label="Recipient's username"
-									aria-describedby="button-addon2"
+									className="form-control form-control-sm"
+									placeholder="Procurar atendimento"
 								/>
-								<select
-									className="form-select"
-									aria-label="Default select example"
-								>
-									<option selected>Selecione o filtro</option>
-									<option value="1">Número da Consulta</option>
-									<option value="2">Nome do Paciente</option>
-									<option value="3">Nome do Médico</option>
-								</select>
 								<button
 									className="btn btn-outline-secondary"
 									type="button"
 									id="button-addon2"
 								>
-									Button
+									Procurar
 								</button>
 							</div>
-						</div>
-						<div className="container">
-							<div className="list-group">
-								{consultas.map((item) => (
-									<a
-										href="#"
-										className="list-group-item list-group-item-action text-break"
-										aria-current="true"
-										key={item.id}
-									>
-										<div className="d-flex w-100 justify-content-between align-items-center">
-											<h6 className="mb-1">
-												<label>Nome do Paciente: </label> {item.paciente}
-											</h6>
-											<p></p>
-											<p>Número do Atendimento: {item.id}</p>
-											<p>
-												Data de cadastro:{" "}
-												{format(new Date(), "dd/mm/yyyy kk:mm:ss")}
-											</p>
-										</div>
-										<div className="d-flex w-100 justify-content-between align-items-center">
-											<p className="mb-1">
-												<label>Nome do Médico: </label> {item.medico}
-												<br />
-												<label>Especialidade: </label> {item.especialidade}
-												<br />
-											</p>
-											<small>
-												<div
-													className="btn-group btn-group-sm"
-													role="group"
-													aria-label="Basic outlined example"
-												>
-													<button
-														type="button"
-														className="btn btn-outline-secondary"
-														onClick={() => handleClickAlterarAtendimento(item)}
-													>
-														Editar Atendimento
-													</button>
-													<button
-														type="button"
-														className="btn btn-outline-danger"
-													>
-														Excluir Atendimento
-													</button>
+							<div className="list-search overflow-auto">
+								<div className="list-group">
+									{consultas.map((consulta) => (
+										<Link
+											key={consulta.id}
+											href={`/atendimentos/consultas/${consulta.id}`}
+											replace
+										>
+											<a
+												className="list-group-item list-group-item-action text-break"
+												aria-current="true"
+											>
+												<div className="d-flex w-100 justify-content-between align-items-center">
+													<h6 className="mb-1">
+														<label>Nome: {consulta.paciente}</label>
+														<br />
+														<small>Usuário: {consulta.medico}</small>
+													</h6>
 												</div>
-											</small>
-										</div>
-									</a>
-								))}
+												<div className="d-flex w-100 justify-content-between align-items-center">
+													<p className="mb-1">
+														<label>Tipo: {consulta.especialidade}</label>
+														<br />
+														<label>Data: {consulta.dataAtendimento}</label>
+													</p>
+													<small>
+														<div
+															className="btn-group btn-group-sm"
+															role="group"
+															aria-label="Basic outlined example"
+														>
+															<Link
+																href={`/atendimentos/consultas/edit/${consulta.id}`}
+																replace
+															>
+																<a
+																	type="button"
+																	className="btn btn-outline-secondary"
+																>
+																	Editar
+																</a>
+															</Link>
+															<button
+																type="button"
+																onClick={(e) => {
+																	e.preventDefault;
+																	deleteConsulta(user);
+																}}
+																className="btn btn-outline-danger"
+															>
+																Excluir
+															</button>
+														</div>
+													</small>
+												</div>
+											</a>
+										</Link>
+									))}
+								</div>
 							</div>
 						</div>
-						<FormModal
-							tipo={tipoModal}
-							item={itemModal}
-							showModal={showModal}
-							setShowModal={setShowModal}
-						></FormModal>
 					</div>
 				</MainContent>
 			</Main>
@@ -204,40 +200,21 @@ export async function getServerSideProps(ctx) {
 }
 
 const Main = styled.main`
-	margin-left: 250px;
+	margin-left: 260px;
 `;
 
 const MainContent = styled.main`
-	margin-top: 80px;
+	margin-top: 50px;
 	padding: 2rem 1.5rem;
 	background: var(--white);
 	min-height: calc(100vh - 90px);
-
-	.top-container {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		.btn-outline-primary {
-			border-color: var(--main-color);
-			color: var(--color-dark);
-			margin-right: 2rem;
-			&:hover {
-				background-color: var(--main-color);
-			}
-		}
-	}
-	.container {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
+	.card {
 		width: 100%;
-		margin-top: 1rem;
-		.list-group {
-			width: 100%;
-			height: 65vh;
-			font-size: 0.8rem;
-			overflow: auto;
-		}
+	}
+	.list-search {
+		height: 60vh;
+	}
+	.btn-group {
+		width: 100%;
 	}
 `;
