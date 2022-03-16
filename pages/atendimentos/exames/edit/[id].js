@@ -1,54 +1,55 @@
+/* eslint-disable @next/next/link-passhref */
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import nookies, { parseCookies } from "nookies";
 
-import HeadPage from "../../../src/Components/Head";
-import SidebarComponent from "../../../src/Components/SideMenu/Sidebar";
-import HeaderComponent from "../../../src/Components/Header";
-import { api } from "../../../services/api";
-import { useForm } from "react-hook-form";
+import HeadPage from "../../../../src/Components/Head";
+import SidebarComponent from "../../../../src/Components/SideMenu/Sidebar";
+import HeaderComponent from "../../../../src/Components/Header";
+import { api } from "../../../../services/api";
+import { useFieldArray, useForm } from "react-hook-form";
+import EnderecoForm from "../../../../src/Components/EnderecoForm";
 import Link from "next/link";
 
-export default function ColaboradorInsert() {
-	const {
-		register,
-		control,
-		handleSubmit,
-		reset,
-		formState: { errors },
-	} = useForm();
-	const { push } = useRouter();
-	const [users, setUsers] = useState([]);
+export default function ColaboradorAlter() {
+	const { register, control, handleSubmit, reset } = useForm();
+	const { query, push } = useRouter();
+	const { id } = query;
 
-	const handleConsultaSubmit = async (data) => {
-		console.log(data);
-		// await api
-		// 	.post(`/api/colaborador/`, data)
-		// 	.then(push("/cadastros/colaborador/"));
-		// reset();
+	const handleUsuariosAlterSubmit = async (data) => {
+		await api
+			.put(`/api/colaborador/${id}`, data)
+			.then(push("/cadastros/colaborador/"));
 	};
 
-	// useEffect(() => {
-	//   handleUsuarios();
-	// }, []);
+	const buscaUsuario = useCallback(() => {
+		api.get(`/api/colaborador/${id}`).then((response) => {
+			console.log(1);
+			reset(response.data);
+		});
+	}, [id, reset]);
+
+	useEffect(() => {
+		buscaUsuario();
+	}, [buscaUsuario]);
 
 	return (
 		<div className="">
-			<HeadPage pageTitle={"[Consultas]"} />
+			<HeadPage pageTitle={"[Exames]"} />
 			<SidebarComponent
-				ativo={"atendimento"}
-				subitem={"consulta"}
+				ativo={"atendimentos"}
+				subitem={"exames"}
 			></SidebarComponent>
 			<Main>
 				<HeaderComponent
-					title={"Atendimentos - Consultas [Novo]"}
+					title={"Atendimentos - Exames [Alterar]"}
 				></HeaderComponent>
 				<MainContent>
 					<div className="card">
 						<div className="card-body">
 							<div className="d-flex justify-content-between top-container mb-4">
-								<h6 className="">Formulário de Consultas</h6>
+								<h6 className="">Formulário de Atendimento</h6>
 								<Link href={`/atendimentos/consultas/`} passHref>
 									<button
 										type="button"
@@ -123,41 +124,20 @@ export default function ColaboradorInsert() {
 										/>
 									</div>
 									<div className="mb-1 col">
-										<label
-											htmlFor="tipoConsulta"
-											className="form-label form-label-sm"
-										>
-											Tipo Consulta
-										</label>
-										<select
-											className="form-select form-select-sm"
-											aria-label=".form-select-sm example"
-											{...register("tipoConsulta")}
-										>
-											<option value={0}>Primeira Consulta</option>
-											<option value={1}>Retorno</option>
-											<option value={2}>Pré-Natal</option>
-											<option value={3}>Encaminhamento</option>
-										</select>
+										<div className="card"></div>
 									</div>
-									<div className="mb-1 col">
+									<div className="mb-1 col form-group">
 										<label
 											htmlFor="tipoConsulta"
 											className="form-label form-label-sm"
 										>
-											Indicação de Acidente
+											Indicação Clinica
 										</label>
-										<select
-											className="form-select form-select-sm"
+										<textarea
+											className="form-control form-control-sm"
 											aria-label=".form-select-sm example"
-											{...register("indicacaoAcidente")}
-										>
-											<option value={0}>Não Acidente </option>
-											<option value={1}>Pessoal</option>
-											<option value={2}>Trabalho</option>
-											<option value={3}>Transito</option>
-											<option value={4}>Outros</option>
-										</select>
+											{...register("indicacaoClinica")}
+										></textarea>
 									</div>
 									<div className="mb-1 col">
 										<label
@@ -174,20 +154,6 @@ export default function ColaboradorInsert() {
 											<option value={0}>Eletivo</option>
 											<option value={1}>Urgencia</option>
 										</select>
-									</div>
-									<div className="mb-4 col mt-4 form-check">
-										<input
-											type="checkbox"
-											className="form-check-input"
-											aria-label=".form-select-sm example"
-											{...register("atendimentoRecemNascido")}
-										/>
-										<label
-											htmlFor="tipoConsulta"
-											className="form-label form-label-sm"
-										>
-											Atendimento Recém-Nascido
-										</label>
 									</div>
 									<div
 										className="btn-group mt-2"

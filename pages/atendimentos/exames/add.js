@@ -21,7 +21,7 @@ export default function ColaboradorInsert() {
 	const { push } = useRouter();
 	const [users, setUsers] = useState([]);
 
-	const handleConsultaSubmit = async (data) => {
+	const handleExamesSubmit = async (data) => {
 		console.log(data);
 		// await api
 		// 	.post(`/api/colaborador/`, data)
@@ -35,21 +35,21 @@ export default function ColaboradorInsert() {
 
 	return (
 		<div className="">
-			<HeadPage pageTitle={"[Consultas]"} />
+			<HeadPage pageTitle={"[Exames]"} />
 			<SidebarComponent
 				ativo={"atendimento"}
-				subitem={"consulta"}
+				subitem={"exames"}
 			></SidebarComponent>
 			<Main>
 				<HeaderComponent
-					title={"Atendimentos - Consultas [Novo]"}
+					title={"Atendimentos - Exames [Novo]"}
 				></HeaderComponent>
 				<MainContent>
 					<div className="card">
 						<div className="card-body">
 							<div className="d-flex justify-content-between top-container mb-4">
-								<h6 className="">Formulário de Consultas</h6>
-								<Link href={`/atendimentos/consultas/`} passHref>
+								<h6 className="">Formulário de Exames</h6>
+								<Link href={`/atendimentos/exames/`} passHref>
 									<button
 										type="button"
 										className="btn btn-sm btn-outline-danger"
@@ -59,7 +59,7 @@ export default function ColaboradorInsert() {
 								</Link>
 							</div>
 							<div className="list-search overflow-auto border-top">
-								<form onSubmit={handleSubmit(handleConsultaSubmit)}>
+								<form onSubmit={handleSubmit(handleExamesSubmit)}>
 									<input type="hidden" name="id" {...register("id")} />
 									<div className="mb-1 col">
 										<label
@@ -123,41 +123,20 @@ export default function ColaboradorInsert() {
 										/>
 									</div>
 									<div className="mb-1 col">
-										<label
-											htmlFor="tipoConsulta"
-											className="form-label form-label-sm"
-										>
-											Tipo Consulta
-										</label>
-										<select
-											className="form-select form-select-sm"
-											aria-label=".form-select-sm example"
-											{...register("tipoConsulta")}
-										>
-											<option value={0}>Primeira Consulta</option>
-											<option value={1}>Retorno</option>
-											<option value={2}>Pré-Natal</option>
-											<option value={3}>Encaminhamento</option>
-										</select>
+										<div className="card"></div>
 									</div>
-									<div className="mb-1 col">
+									<div className="mb-1 col form-group">
 										<label
 											htmlFor="tipoConsulta"
 											className="form-label form-label-sm"
 										>
-											Indicação de Acidente
+											Indicação Clinica
 										</label>
-										<select
-											className="form-select form-select-sm"
+										<textarea
+											className="form-control form-control-sm"
 											aria-label=".form-select-sm example"
-											{...register("indicacaoAcidente")}
-										>
-											<option value={0}>Não Acidente </option>
-											<option value={1}>Pessoal</option>
-											<option value={2}>Trabalho</option>
-											<option value={3}>Transito</option>
-											<option value={4}>Outros</option>
-										</select>
+											{...register("indicacaoClinica")}
+										></textarea>
 									</div>
 									<div className="mb-1 col">
 										<label
@@ -175,27 +154,13 @@ export default function ColaboradorInsert() {
 											<option value={1}>Urgencia</option>
 										</select>
 									</div>
-									<div className="mb-4 col mt-4 form-check">
-										<input
-											type="checkbox"
-											className="form-check-input"
-											aria-label=".form-select-sm example"
-											{...register("atendimentoRecemNascido")}
-										/>
-										<label
-											htmlFor="tipoConsulta"
-											className="form-label form-label-sm"
-										>
-											Atendimento Recém-Nascido
-										</label>
-									</div>
 									<div
 										className="btn-group mt-2"
 										role="group"
 										aria-label="Basic outlined example"
 									>
 										<button type="submit" className="btn btn-outline-primary">
-											Gravar Consulta
+											Gravar Exame
 										</button>
 										<Link href={`/atendimentos/exames`} passHref>
 											<button type="button" className="btn btn-outline-danger">

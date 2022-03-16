@@ -9,7 +9,6 @@ import nookies, { parseCookies } from "nookies";
 import HeadPage from "../../../src/Components/Head";
 import SidebarComponent from "../../../src/Components/SideMenu/Sidebar";
 import HeaderComponent from "../../../src/Components/Header";
-import FormModalExames from "../../../src/Components/FormModalExame";
 import Link from "next/link";
 
 export default function Exames() {

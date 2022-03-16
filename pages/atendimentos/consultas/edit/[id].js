@@ -36,14 +36,14 @@ export default function ColaboradorAlter() {
 
 	return (
 		<div className="">
-			<HeadPage pageTitle={"[Colaborador]"} />
+			<HeadPage pageTitle={"[Consultas]"} />
 			<SidebarComponent
-				ativo={"cadastros"}
-				subitem={"colaborador"}
+				ativo={"atendimentos"}
+				subitem={"consultas"}
 			></SidebarComponent>
 			<Main>
 				<HeaderComponent
-					title={"Cadastros - Colaborador [Alterar]"}
+					title={"Atendimentos - Consultas [Alterar]"}
 				></HeaderComponent>
 				<MainContent>
 					<div className="card">
@@ -198,7 +198,7 @@ export default function ColaboradorAlter() {
 										<button type="submit" className="btn btn-outline-primary">
 											Gravar Consulta
 										</button>
-										<Link href={`/cadastros/colaborador`} passHref>
+										<Link href={`/atendimentos/consultas`} passHref>
 											<button type="button" className="btn btn-outline-danger">
 												Cancelar
 											</button>
