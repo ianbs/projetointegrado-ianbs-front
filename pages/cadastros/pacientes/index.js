@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/link-passhref */
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -13,19 +12,19 @@ import { api } from "../../../services/api";
 
 export default function Pacientes() {
 	const { push } = useRouter();
-	const [users, setUsers] = useState([]);
+	const [pacientes, setPacientes] = useState([]);
 
 	const handlePacientes = async () => {
 		await api.get("/api/pacientes/").then((resposta) => {
-			setUsers(resposta.data);
+			setPacientes(resposta.data);
 		});
 	};
 
 	const deletePaciente = async ({ id }) => {
 		console.log(id);
 		await api
-			.delete(`/api/colaborador/${id}`)
-			.then(push("/cadastros/colaborador/"));
+			.delete(`/api/pacientes/${id}`)
+			.then(push("/cadastros/pacientes/"));
 	};
 
 	useEffect(() => {
@@ -55,7 +54,7 @@ export default function Pacientes() {
 								<input
 									type="text"
 									className="form-control form-control-sm"
-									placeholder="Procurar Colaborador"
+									placeholder="Procurar paciente..."
 								/>
 								<button
 									className="btn btn-outline-secondary"
@@ -67,10 +66,10 @@ export default function Pacientes() {
 							</div>
 							<div className="list-search overflow-auto">
 								<div className="list-group">
-									{users.map((user) => (
+									{pacientes.map((paciente) => (
 										<Link
-											key={user.id}
-											href={`/cadastros/pacientes/${user.id}`}
+											key={paciente.id}
+											href={`/cadastros/pacientes/${paciente.id}`}
 											replace
 										>
 											<a
@@ -79,14 +78,14 @@ export default function Pacientes() {
 											>
 												<div className="d-flex w-100 justify-content-between align-items-center">
 													<h6 className="mb-1">
-														<label>Nome: {user.nome}</label>
+														<label>Nome: {paciente.nome}</label>
 														<br />
-														<small>Usuário: {user.usuario.username}</small>
+														<small>CPF: {paciente.cpf}</small>
 													</h6>
 												</div>
 												<div className="d-flex w-100 justify-content-between align-items-center">
 													<p className="mb-1">
-														<label>Tipo: {user.usuario.permissoes}</label>
+														<label>CNS: {paciente.cartaoNacionalSaude}</label>
 														<br />
 													</p>
 													<small>

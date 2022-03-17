@@ -35,7 +35,7 @@ const SidebarData = [
 			},
 			{
 				title: "Profissionais",
-				link: "/cadastros/medicos",
+				link: "/cadastros/profissionais",
 			},
 			{
 				title: "Pacientes",

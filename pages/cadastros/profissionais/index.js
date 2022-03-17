@@ -11,13 +11,13 @@ import HeaderComponent from "../../../src/Components/Header";
 import Link from "next/link";
 import { api } from "../../../services/api";
 
-export default function Medico() {
+export default function Profissionais() {
 	const { push } = useRouter();
-	const [users, setUsers] = useState([]);
+	const [profissionais, setProfissionais] = useState([]);
 
 	const handleProfissionais = async () => {
 		await api.get("/api/profissionais/").then((resposta) => {
-			setUsers(resposta.data);
+			setProfissionais(resposta.data);
 		});
 	};
 
@@ -34,16 +34,16 @@ export default function Medico() {
 
 	return (
 		<div className="">
-			<HeadPage pageTitle={"[Médico]"} />
+			<HeadPage pageTitle={"[Profissionais]"} />
 			<SidebarComponent
 				ativo={"cadastros"}
 				subitem={"medico"}
 			></SidebarComponent>
 			<Main>
-				<HeaderComponent title={"Cadastros - Médicos"}></HeaderComponent>
+				<HeaderComponent title={"Cadastros - Profissionais"}></HeaderComponent>
 				<MainContent>
 					<div className="d-flex justify-content-between top-container mb-4">
-						<Link href={`/cadastros/medicos/add`} replace>
+						<Link href={`/cadastros/profissionais/add`} replace>
 							<button type="button" className="btn btn-sm btn-outline-primary">
 								Novo Profissional
 							</button>
@@ -67,10 +67,10 @@ export default function Medico() {
 							</div>
 							<div className="list-search overflow-auto">
 								<div className="list-group">
-									{users.map((user) => (
+									{profissionais.map((profissional) => (
 										<Link
-											key={user.id}
-											href={`/cadastros/medicos/${user.id}`}
+											key={profissional.id}
+											href={`/cadastros/profissionais/${profissional.id}`}
 											replace
 										>
 											<a
@@ -79,15 +79,18 @@ export default function Medico() {
 											>
 												<div className="d-flex w-100 justify-content-between align-items-center">
 													<h6 className="mb-1">
-														<label>Nome: {user.nome}</label>
+														<label>Nome: {profissional.nome}</label>
 														<br />
-														<small>Especialidade: {user.especialidade}</small>
+														<small>
+															Especialidade: {profissional.especialidade}
+														</small>
 													</h6>
 												</div>
 												<div className="d-flex w-100 justify-content-between align-items-center">
 													<p className="mb-1">
 														<label>
-															Conselho: {user.conselho} {user.numeroConselho}
+															Conselho: {profissional.conselho}{" "}
+															{profissional.numeroConselho}
 														</label>
 														<br />
 													</p>
@@ -98,7 +101,7 @@ export default function Medico() {
 															aria-label="Basic outlined example"
 														>
 															<Link
-																href={`/cadastros/medicos/edit/${user.id}`}
+																href={`/cadastros/profissionais/edit/${profissional.id}`}
 																replace
 															>
 																<a
@@ -112,7 +115,7 @@ export default function Medico() {
 																type="button"
 																onClick={(e) => {
 																	e.preventDefault;
-																	deleteProfissional(user);
+																	deleteProfissional(profissional);
 																}}
 																className="btn btn-outline-danger"
 															>

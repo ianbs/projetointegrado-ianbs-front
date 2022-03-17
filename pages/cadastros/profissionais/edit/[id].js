@@ -1,71 +1,56 @@
+/* eslint-disable @next/next/link-passhref */
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import nookies, { parseCookies } from "nookies";
+import { parseCookies } from "nookies";
 
-import HeadPage from "../../../src/Components/Head";
-import SidebarComponent from "../../../src/Components/SideMenu/Sidebar";
-import HeaderComponent from "../../../src/Components/Header";
-import { api } from "../../../services/api";
-import { useFieldArray, useForm } from "react-hook-form";
-import EnderecoForm from "../../../src/Components/EnderecoForm";
+import HeadPage from "../../../../src/Components/Head";
+import SidebarComponent from "../../../../src/Components/SideMenu/Sidebar";
+import HeaderComponent from "../../../../src/Components/Header";
+import { api } from "../../../../services/api";
+import { useForm } from "react-hook-form";
+import EnderecoForm from "../../../../src/Components/EnderecoForm";
 import Link from "next/link";
 
-export default function ProfissionalInsert() {
-	const {
-		register,
-		control,
-		handleSubmit,
-		reset,
-		formState: { errors },
-	} = useForm({
-		defaultValues: {
-			enderecos: [
-				{
-					logradouro: "",
-					numero: 0,
-					cep: "",
-					bairro: "",
-					complemento: "",
-					codigoIbge: null,
-					tipoEndereco: "",
-					cidade: {
-						nome: "",
-						estado: {
-							id: 1,
-						},
-					},
-				},
-			],
-		},
-	});
-	const { push } = useRouter();
+export default function ColaboradorAlter() {
+	const { register, control, handleSubmit, reset } = useForm();
+	const { query, push } = useRouter();
+	const { id } = query;
 
-	const handleUsuariosSubmit = async (data) => {
-		console.log(data);
+	const handleProfissionaisAlterSubmit = async (data) => {
 		await api
-			.post(`/api/profissionais`, data)
-			.then(push("/cadastros/medicos/"));
-		reset();
+			.put(`/api/profissionais/${id}`, data)
+			.then(push("/cadastros/profissionais/"));
 	};
+
+	const buscaUsuario = useCallback(() => {
+		api.get(`/api/profissionais/${id}`).then((response) => {
+			console.log(1);
+			reset(response.data);
+		});
+	}, [id, reset]);
+
+	useEffect(() => {
+		buscaUsuario();
+	}, [buscaUsuario]);
 
 	return (
 		<div className="">
 			<HeadPage pageTitle={"[Profissionais]"} />
 			<SidebarComponent
 				ativo={"cadastros"}
-				subitem={"profissionais"}
+				subitem={"medicos"}
 			></SidebarComponent>
 			<Main>
 				<HeaderComponent
-					title={"Cadastros - Profissionais [Novo]"}
+					title={"Cadastros - Profissional [Alterar]"}
 				></HeaderComponent>
 				<MainContent>
 					<div className="card">
 						<div className="card-body">
 							<div className="d-flex justify-content-between top-container mb-4">
-								<h6 className="">Formulário de Cadastro de Profissionais</h6>
-								<Link href={`/cadastros/medicos/`} passHref>
+								<h6 className="">Formulário de Edição de Profissional</h6>
+								<Link href={`/cadastros/profissionais/`} replace>
 									<button
 										type="button"
 										className="btn btn-sm btn-outline-danger"
@@ -75,7 +60,7 @@ export default function ProfissionalInsert() {
 								</Link>
 							</div>
 							<div className="list-search overflow-auto border-top">
-								<form onSubmit={handleSubmit(handleUsuariosSubmit)}>
+								<form onSubmit={handleSubmit(handleProfissionaisAlterSubmit)}>
 									<input type="hidden" name="id" {...register("id")} />
 									<div className="mb-1 col">
 										<label htmlFor="nome" className="form-label form-label-sm">
@@ -89,54 +74,7 @@ export default function ProfissionalInsert() {
 											id="nome"
 										/>
 									</div>
-									<div className="mb-1 col">
-										<label htmlFor="cpf" className="form-label form-label-sm">
-											CBO
-										</label>
-										<input
-											type="text"
-											name="cbo"
-											{...register("cbo")}
-											className="form-control form-control-sm"
-											id="cbo"
-										/>
-									</div>
-									<div className="mb-1 col">
-										<label htmlFor="cpf" className="form-label form-label-sm">
-											Especialidade
-										</label>
-										<input
-											type="text"
-											name="especialidade"
-											{...register("especialidade")}
-											className="form-control form-control-sm"
-											id="especialidade"
-										/>
-									</div>
-									<div className="mb-1 col">
-										<label htmlFor="cpf" className="form-label form-label-sm">
-											Conselho
-										</label>
-										<input
-											type="text"
-											name="conselho"
-											{...register("conselho")}
-											className="form-control form-control-sm"
-											id="conselho"
-										/>
-									</div>
-									<div className="mb-1 col">
-										<label htmlFor="cpf" className="form-label form-label-sm">
-											Número do Conselho
-										</label>
-										<input
-											type="text"
-											name="numeroConselho"
-											{...register("numeroConselho")}
-											className="form-control form-control-sm"
-											id="numeroConselho"
-										/>
-									</div>
+
 									<div className="mb-1 col">
 										<label htmlFor="cpf" className="form-label form-label-sm">
 											CPF
@@ -171,26 +109,25 @@ export default function ProfissionalInsert() {
 										<input
 											type="date"
 											name="dataNascimento"
-											{...register("dataNascimento")}
+											{...register("dataNascimento", { valueAsDate: true })}
 											className="form-control form-control-sm"
 											id="dataNascimento"
 										/>
 									</div>
 									<div className="mb-1 col">
 										<label
-											htmlFor="complemento"
+											htmlFor="dataVinculo"
 											className="form-label form-label-sm"
 										>
-											Sexo
+											Data de Vinculo
 										</label>
-										<select
-											className="form-select form-select-sm"
-											aria-label=".form-select-sm example"
-											{...register("sexo")}
-										>
-											<option value={0}>Masculino</option>
-											<option value={1}>Feminino</option>
-										</select>
+										<input
+											type="date"
+											name="dataVinculo"
+											{...register("dataVinculo", { valueAsDate: true })}
+											className="form-control form-control-sm"
+											id="dataVinculo"
+										/>
 									</div>
 									<div className="mb-1 col">
 										<label
@@ -241,9 +178,9 @@ export default function ProfissionalInsert() {
 										aria-label="Basic outlined example"
 									>
 										<button type="submit" className="btn btn-outline-primary">
-											Gravar Profissional
+											Alterar Profissional
 										</button>
-										<Link href={`/cadastros/medicos`} passHref>
+										<Link href={`/cadastros/profissionais`} replace>
 											<button type="button" className="btn btn-outline-danger">
 												Cancelar
 											</button>

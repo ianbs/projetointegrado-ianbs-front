@@ -2,26 +2,20 @@
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import nookies, { parseCookies } from "nookies";
+import { parseCookies } from "nookies";
 
 import HeadPage from "../../../src/Components/Head";
 import SidebarComponent from "../../../src/Components/SideMenu/Sidebar";
 import HeaderComponent from "../../../src/Components/Header";
 import { api } from "../../../services/api";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import EnderecoForm from "../../../src/Components/EnderecoForm";
 import Link from "next/link";
 
 export default function ProfissionalAlter() {
-	const { register, control, handleSubmit, reset } = useForm();
-	const { query, push } = useRouter();
+	const { register, control, reset } = useForm();
+	const { query } = useRouter();
 	const { id } = query;
-
-	const handleUsuariosAlterSubmit = async (data) => {
-		await api
-			.put(`/api/profissionais/${id}`, data)
-			.then(push("/cadastros/medicos/"));
-	};
 
 	const buscaUsuario = useCallback(() => {
 		api.get(`/api/profissionais/${id}`).then((response) => {
@@ -42,15 +36,13 @@ export default function ProfissionalAlter() {
 				subitem={"medicos"}
 			></SidebarComponent>
 			<Main>
-				<HeaderComponent
-					title={`Cadastros - Profissional ${id}`}
-				></HeaderComponent>
+				<HeaderComponent title={`Cadastros - Profissional`}></HeaderComponent>
 				<MainContent>
 					<div className="card">
 						<div className="card-body">
 							<div className="d-flex justify-content-between top-container mb-4">
 								<h6 className="">Profissional</h6>
-								<Link href={`/cadastros/medicos/`} replace>
+								<Link href={`/cadastros/profissionais/`} replace>
 									<button
 										type="button"
 										className="btn btn-sm btn-outline-danger"
@@ -60,7 +52,7 @@ export default function ProfissionalAlter() {
 								</Link>
 							</div>
 							<div className="list-search overflow-auto border-top">
-								<form onSubmit={handleSubmit(handleUsuariosAlterSubmit)}>
+								<form>
 									<input type="hidden" name="id" {...register("id")} />
 									<div className="mb-1 col">
 										<label htmlFor="nome" className="form-label form-label-sm">

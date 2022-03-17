@@ -1,17 +1,24 @@
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { parseCookies } from "nookies";
+import nookies, { parseCookies } from "nookies";
 
 import HeadPage from "../../../src/Components/Head";
 import SidebarComponent from "../../../src/Components/SideMenu/Sidebar";
 import HeaderComponent from "../../../src/Components/Header";
 import { api } from "../../../services/api";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import EnderecoForm from "../../../src/Components/EnderecoForm";
 import Link from "next/link";
 
-export default function PacienteInsert() {
-	const { register, control, handleSubmit, reset } = useForm({
+export default function ProfissionalInsert() {
+	const {
+		register,
+		control,
+		handleSubmit,
+		reset,
+		formState: { errors },
+	} = useForm({
 		defaultValues: {
 			enderecos: [
 				{
@@ -34,28 +41,31 @@ export default function PacienteInsert() {
 	});
 	const { push } = useRouter();
 
-	const handleUsuariosSubmit = async (data) => {
-		await api.post(`/api/pacientes/`, data).then(push("/cadastros/pacientes/"));
+	const handleProfissionaisSubmit = async (data) => {
+		console.log(data);
+		await api
+			.post(`/api/profissionais`, data)
+			.then(push("/cadastros/profissionais/"));
 		reset();
 	};
 
 	return (
 		<div className="">
-			<HeadPage pageTitle={"[Pacientes]"} />
+			<HeadPage pageTitle={"[Profissionais]"} />
 			<SidebarComponent
 				ativo={"cadastros"}
-				subitem={"pacientes"}
+				subitem={"medicos"}
 			></SidebarComponent>
 			<Main>
 				<HeaderComponent
-					title={"Cadastros - Pacientes [Novo]"}
+					title={"Cadastros - Profissionais [Novo]"}
 				></HeaderComponent>
 				<MainContent>
 					<div className="card">
 						<div className="card-body">
 							<div className="d-flex justify-content-between top-container mb-4">
-								<h6 className="">Formulário de Cadastro de Pacientes</h6>
-								<Link href={`/cadastros/pacientes/`} passHref>
+								<h6 className="">Formulário de Cadastro de Profissionais</h6>
+								<Link href={`/cadastros/profissional/`} passHref>
 									<button
 										type="button"
 										className="btn btn-sm btn-outline-danger"
@@ -65,7 +75,8 @@ export default function PacienteInsert() {
 								</Link>
 							</div>
 							<div className="list-search overflow-auto border-top">
-								<form onSubmit={handleSubmit(handleUsuariosSubmit)}>
+								<form onSubmit={handleSubmit(handleProfissionaisSubmit)}>
+									<input type="hidden" name="id" {...register("id")} />
 									<div className="mb-1 col">
 										<label htmlFor="nome" className="form-label form-label-sm">
 											Nome Completo
@@ -78,7 +89,54 @@ export default function PacienteInsert() {
 											id="nome"
 										/>
 									</div>
-
+									<div className="mb-1 col">
+										<label htmlFor="cpf" className="form-label form-label-sm">
+											CBO
+										</label>
+										<input
+											type="text"
+											name="cbo"
+											{...register("cbo")}
+											className="form-control form-control-sm"
+											id="cbo"
+										/>
+									</div>
+									<div className="mb-1 col">
+										<label htmlFor="cpf" className="form-label form-label-sm">
+											Especialidade
+										</label>
+										<input
+											type="text"
+											name="especialidade"
+											{...register("especialidade")}
+											className="form-control form-control-sm"
+											id="especialidade"
+										/>
+									</div>
+									<div className="mb-1 col">
+										<label htmlFor="cpf" className="form-label form-label-sm">
+											Conselho
+										</label>
+										<input
+											type="text"
+											name="conselho"
+											{...register("conselho")}
+											className="form-control form-control-sm"
+											id="conselho"
+										/>
+									</div>
+									<div className="mb-1 col">
+										<label htmlFor="cpf" className="form-label form-label-sm">
+											Número do Conselho
+										</label>
+										<input
+											type="text"
+											name="numeroConselho"
+											{...register("numeroConselho")}
+											className="form-control form-control-sm"
+											id="numeroConselho"
+										/>
+									</div>
 									<div className="mb-1 col">
 										<label htmlFor="cpf" className="form-label form-label-sm">
 											CPF
@@ -101,18 +159,6 @@ export default function PacienteInsert() {
 											{...register("rg")}
 											className="form-control form-control-sm"
 											id="rg"
-										/>
-									</div>
-									<div className="mb-1 col">
-										<label htmlFor="rg" className="form-label form-label-sm">
-											Cartão Nacional de Saúde
-										</label>
-										<input
-											type="text"
-											name="cartaoNacionalSaude"
-											{...register("cartaoNacionalSaude")}
-											className="form-control form-control-sm"
-											id="cartaoNacionalSaude"
 										/>
 									</div>
 									<div className="mb-1 col">
@@ -146,6 +192,45 @@ export default function PacienteInsert() {
 											<option value={1}>Feminino</option>
 										</select>
 									</div>
+									<div className="mb-1 col">
+										<label
+											htmlFor="username"
+											className="form-label form-label-sm"
+										>
+											Usuário
+										</label>
+										<input
+											type="text"
+											{...register("usuario.username")}
+											className="form-control form-control-sm"
+											id="inputAddress2"
+										/>
+									</div>
+									<div className="mb-1 col">
+										<label
+											htmlFor="password"
+											className="form-label form-label-sm"
+										>
+											Senha
+										</label>
+										<input
+											type="password"
+											{...register("usuario.password")}
+											className="form-control form-control-sm"
+											id="password"
+										/>
+									</div>
+									<div className="mb-1 col">
+										<label htmlFor="email" className="form-label form-label-sm">
+											Email
+										</label>
+										<input
+											type="email"
+											{...register("usuario.email")}
+											className="form-control form-control-sm"
+											id="email"
+										/>
+									</div>
 									<EnderecoForm
 										register={register}
 										control={control}
@@ -156,9 +241,9 @@ export default function PacienteInsert() {
 										aria-label="Basic outlined example"
 									>
 										<button type="submit" className="btn btn-outline-primary">
-											Gravar Paciente
+											Gravar Profissional
 										</button>
-										<Link href={`/cadastros/pacientes`} passHref>
+										<Link href={`/cadastros/profissional`} passHref>
 											<button type="button" className="btn btn-outline-danger">
 												Cancelar
 											</button>

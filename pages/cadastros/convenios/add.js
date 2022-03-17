@@ -10,24 +10,18 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 
 export default function ConveniosInsert() {
-	const {
-		register,
-		handleSubmit,
-		reset,
-		formState: { errors },
-	} = useForm();
+	const { register, handleSubmit, reset } = useForm();
 
 	const { push } = useRouter();
 
 	const handleConvenioSubmit = async (data) => {
-		// console.log(data);
 		await api.post(`/api/convenios/`, data).then(push("/cadastros/convenios/"));
 		reset();
 	};
 
 	return (
 		<div className="">
-			<HeadPage pageTitle={"[Convenios]"} />
+			<HeadPage pageTitle={"[Convênios]"} />
 			<SidebarComponent
 				ativo={"cadastros"}
 				subitem={"convenios"}
@@ -40,7 +34,7 @@ export default function ConveniosInsert() {
 					<div className="card">
 						<div className="card-body">
 							<div className="d-flex justify-content-between top-container mb-4">
-								<h6 className="">Formulário de Cadastro de Colaboradores</h6>
+								<h6 className="">Formulário de Cadastro de Convênio</h6>
 								<Link href={`/cadastros/convenios/`} passHref>
 									<button
 										type="button"
