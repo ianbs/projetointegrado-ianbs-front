@@ -17,10 +17,10 @@ export default function ColaboradorAlter() {
 	const { query, push } = useRouter();
 	const { id } = query;
 
-	const handleUsuariosAlterSubmit = async (data) => {
+	const handleConsultaAlterSubmit = async (data) => {
 		await api
-			.put(`/api/colaborador/${id}`, data)
-			.then(push("/cadastros/colaborador/"));
+			.put(`/api/consultas/${id}`, data)
+			.then(push("/atendimento/consultas/"));
 	};
 
 	// const buscaUsuario = useCallback(() => {
@@ -43,7 +43,7 @@ export default function ColaboradorAlter() {
 			></SidebarComponent>
 			<Main>
 				<HeaderComponent
-					title={"Atendimentos - Consultas [Alterar]"}
+					title={"Atendimentos - Consultas [Atendimento]"}
 				></HeaderComponent>
 				<MainContent>
 					<div className="card">
@@ -60,7 +60,7 @@ export default function ColaboradorAlter() {
 								</Link>
 							</div>
 							<div className="list-search overflow-auto border-top">
-								<form onSubmit={handleSubmit(handleConsultaSubmit)}>
+								<form onSubmit={handleSubmit(handleConsultaAlterSubmit)}>
 									<input type="hidden" name="id" {...register("id")} />
 									<div className="mb-1 col">
 										<label
@@ -98,97 +98,13 @@ export default function ColaboradorAlter() {
 											htmlFor="convenio"
 											className="form-label form-label-sm"
 										>
-											Convênio
+											Anamnese
 										</label>
-										<input
-											type="text"
-											name="convenio"
-											{...register("convenio")}
-											className="form-control form-control-sm"
-											id="convenio"
-										/>
-									</div>
-									<div className="mb-1 col">
-										<label
-											htmlFor="procedimento"
-											className="form-label form-label-sm"
-										>
-											Procedimento
-										</label>
-										<input
-											type="text"
-											name="procedimento"
-											{...register("procedimento")}
-											className="form-control form-control-sm"
-											id="procedimento"
-										/>
-									</div>
-									<div className="mb-1 col">
-										<label
-											htmlFor="tipoConsulta"
-											className="form-label form-label-sm"
-										>
-											Tipo Consulta
-										</label>
-										<select
-											className="form-select form-select-sm"
-											aria-label=".form-select-sm example"
-											{...register("tipoConsulta")}
-										>
-											<option value={0}>Primeira Consulta</option>
-											<option value={1}>Retorno</option>
-											<option value={2}>Pré-Natal</option>
-											<option value={3}>Encaminhamento</option>
-										</select>
-									</div>
-									<div className="mb-1 col">
-										<label
-											htmlFor="tipoConsulta"
-											className="form-label form-label-sm"
-										>
-											Indicação de Acidente
-										</label>
-										<select
-											className="form-select form-select-sm"
-											aria-label=".form-select-sm example"
-											{...register("indicacaoAcidente")}
-										>
-											<option value={0}>Não Acidente </option>
-											<option value={1}>Pessoal</option>
-											<option value={2}>Trabalho</option>
-											<option value={3}>Transito</option>
-											<option value={4}>Outros</option>
-										</select>
-									</div>
-									<div className="mb-1 col">
-										<label
-											htmlFor="tipoConsulta"
-											className="form-label form-label-sm"
-										>
-											Caracter de Atendimento
-										</label>
-										<select
-											className="form-select form-select-sm"
-											aria-label=".form-select-sm example"
-											{...register("caracterAtendimento")}
-										>
-											<option value={0}>Eletivo</option>
-											<option value={1}>Urgencia</option>
-										</select>
-									</div>
-									<div className="mb-4 col mt-4 form-check">
-										<input
-											type="checkbox"
-											className="form-check-input"
-											aria-label=".form-select-sm example"
-											{...register("atendimentoRecemNascido")}
-										/>
-										<label
-											htmlFor="tipoConsulta"
-											className="form-label form-label-sm"
-										>
-											Atendimento Recém-Nascido
-										</label>
+										<textarea
+											className="form-control"
+											id="exampleFormControlTextarea1"
+											rows="10"
+										></textarea>
 									</div>
 									<div
 										className="btn-group mt-2"
@@ -196,7 +112,7 @@ export default function ColaboradorAlter() {
 										aria-label="Basic outlined example"
 									>
 										<button type="submit" className="btn btn-outline-primary">
-											Gravar Consulta
+											Finalizar Consulta
 										</button>
 										<Link href={`/atendimentos/consultas`} passHref>
 											<button type="button" className="btn btn-outline-danger">

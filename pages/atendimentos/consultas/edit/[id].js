@@ -17,10 +17,10 @@ export default function ColaboradorAlter() {
 	const { query, push } = useRouter();
 	const { id } = query;
 
-	const handleUsuariosAlterSubmit = async (data) => {
+	const handleConsultaAlterSubmit = async (data) => {
 		await api
-			.put(`/api/colaborador/${id}`, data)
-			.then(push("/cadastros/colaborador/"));
+			.put(`/api/consultas/${id}`, data)
+			.then(push("/atendimento/consultas/"));
 	};
 
 	const buscaUsuario = useCallback(() => {
@@ -60,7 +60,7 @@ export default function ColaboradorAlter() {
 								</Link>
 							</div>
 							<div className="list-search overflow-auto border-top">
-								<form onSubmit={handleSubmit(handleConsultaSubmit)}>
+								<form onSubmit={handleSubmit(handleConsultaAlterSubmit)}>
 									<input type="hidden" name="id" {...register("id")} />
 									<div className="mb-1 col">
 										<label
