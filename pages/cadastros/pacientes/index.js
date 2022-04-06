@@ -95,7 +95,7 @@ export default function Pacientes() {
 															aria-label="Basic outlined example"
 														>
 															<Link
-																href={`/cadastros/pacientes/edit/${user.id}`}
+																href={`/cadastros/pacientes/edit/${paciente.id}`}
 																replace
 															>
 																<a
@@ -109,7 +109,7 @@ export default function Pacientes() {
 																type="button"
 																onClick={(e) => {
 																	e.preventDefault;
-																	deletePaciente(user);
+																	deletePaciente(paciente);
 																}}
 																className="btn btn-outline-danger"
 															>
