@@ -50,7 +50,7 @@ export default function ColaboradorAlter() {
 						<div className="card-body">
 							<div className="d-flex justify-content-between top-container mb-4">
 								<h6 className="">Formulário de Edição de Pacientes</h6>
-								<Link href={`/cadastros/colaborador/`} replace>
+								<Link href={`/cadastros/pacientes/`} replace>
 									<button
 										type="button"
 										className="btn btn-sm btn-outline-danger"
