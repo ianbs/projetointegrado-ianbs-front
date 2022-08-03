@@ -7,45 +7,54 @@ import { api } from "../services/api";
 export const AuthContext = createContext({});
 
 export function AuthProvider({ children }) {
-	const isAuthenticated = false;
-	const collapsed = true;
+  const isAuthenticated = false;
+  const collapsed = true;
+  const [erro, setErro] = useState(false);
 
-	async function login({ username, password }) {
-		await fetch("https://projetointegrado-ianbs.herokuapp.com/api/login", {
-			method: "POST",
-			mode: "cors",
-			headers: {
-				"Content-Type": "application/json",
-				"Access-Control-Allow-Origin": "*",
-			},
-			body: JSON.stringify({ username, password }),
-		})
-			.then((res) => {
-				return res.json();
-			})
-			.then((data) => {
-				console.log(data);
-				setCookie(undefined, "projintegtoken", data.token, {
-					maxAge: 60 * 60 * 60,
-				});
-				setCookie(undefined, "username", data.usuario.nome, {
-					maxAge: 60 * 60 * 60,
-				});
-				setCookie(undefined, "userid", data.usuario.id, {
-					maxAge: 60 * 60 * 60,
-				});
-				api.defaults.headers["Authorization"] = `Bearer ${data.token}`;
-				// setUser(data.usuario);
-				// console.log(data.user);
-			})
-			.catch((err) => console.error(err));
+  async function login({ username, password }) {
+    await fetch("https://projetointegrado-ianbs.herokuapp.com/api/login", {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({ username, password }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setCookie(undefined, "projintegtoken", data.token, {
+          maxAge: 60 * 60 * 60,
+        });
+        setCookie(undefined, "username", data.usuario.nome, {
+          maxAge: 60 * 60 * 60,
+        });
+        setCookie(undefined, "userid", data.usuario.id, {
+          maxAge: 60 * 60 * 60,
+        });
+        api.defaults.headers["Authorization"] = `Bearer ${data.token}`;
+        // setUser(data.usuario);
+        // console.log(data.user);
+        Router.push("/");
+      })
+      .catch((err) => {
+        setErro(true);
+        return erro;
+        // console.error(err);
+        // setCookie(undefined, "erro", erro, {
+        //   maxAge: 20,
+        // });
+      });
+  }
 
-		Router.push("/");
-	}
-
-	return (
-		<AuthContext.Provider value={{ isAuthenticated, login, collapsed }}>
-			{children}
-		</AuthContext.Provider>
-	);
+  return (
+    <AuthContext.Provider
+      value={{ isAuthenticated, login, collapsed, erro, setErro }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 }
