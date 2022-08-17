@@ -46,7 +46,8 @@ const AgendaModal = ({ data, showModal, setShowModal }) => {
   const [profissionais, setProfissionais] = useState([]);
 
   const searchProfissionais = () => {
-    api.get("/api/profissionais/").then((data) => {
+    api.get("/profissional").then((data) => {
+      console.log(data.data);
       setProfissionais(data.data);
     });
   };
@@ -187,10 +188,10 @@ const AgendaModal = ({ data, showModal, setShowModal }) => {
                           <>
                             {profissionais.map((profissional) => (
                               <option
-                                key={profissional.id}
+                                key={profissional.id + profissional.nome}
                                 value={profissional.id}
                               >
-                                {profissional.razaoSocial}
+                                {profissional.nome}
                               </option>
                             ))}
                           </>

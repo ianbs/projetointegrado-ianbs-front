@@ -4,7 +4,7 @@ import { parseCookies } from "nookies";
 const { projintegtoken: token } = parseCookies();
 
 export const api = axios.create({
-  baseURL: "https://projetointegrado-ianbs.herokuapp.com",
+  baseURL: "https://sgcc-ianbs.herokuapp.com",
 });
 
 if (token) {

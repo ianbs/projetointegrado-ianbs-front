@@ -18,7 +18,7 @@ export default function ColaboradorAlter() {
   const { id } = query;
 
   const buscaUsuario = useCallback(() => {
-    api.get(`/api/colaborador/${id}`).then((response) => {
+    api.get(`/colaborador/${id}`).then((response) => {
       console.log(1);
       reset(response.data);
     });
@@ -120,7 +120,7 @@ export default function ColaboradorAlter() {
                       Data de Vinculo
                     </label>
                     <input
-                      type="date"
+                      type="datetime"
                       name="dataVinculo"
                       {...register("dataVinculo", { valueAsDate: true })}
                       className="form-control form-control-sm"
@@ -151,7 +151,7 @@ export default function ColaboradorAlter() {
                       Senha
                     </label>
                     <input
-                      type="password"
+                      type="hidden"
                       {...register("usuario.password")}
                       className="form-control form-control-sm"
                       id="password"

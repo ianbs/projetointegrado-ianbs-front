@@ -18,13 +18,11 @@ export default function ColaboradorAlter() {
   const { id } = query;
 
   const handleUsuariosAlterSubmit = async (data) => {
-    await api
-      .put(`/api/colaborador/${id}`, data)
-      .then(push("/cadastros/colaborador/"));
+    await api.put(`/colaborador/`, data).then(push("/cadastros/colaborador/"));
   };
 
   const buscaUsuario = useCallback(() => {
-    api.get(`/api/colaborador/${id}`).then((response) => {
+    api.get(`/colaborador/${id}`).then((response) => {
       console.log(1);
       reset(response.data);
     });

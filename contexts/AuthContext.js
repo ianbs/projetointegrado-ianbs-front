@@ -12,7 +12,7 @@ export function AuthProvider({ children }) {
   const [erro, setErro] = useState(false);
 
   async function login({ username, password }) {
-    await fetch("https://projetointegrado-ianbs.herokuapp.com/api/login", {
+    await fetch("https://sgcc-ianbs.herokuapp.com/auth/login", {
       method: "POST",
       mode: "cors",
       headers: {
@@ -25,16 +25,21 @@ export function AuthProvider({ children }) {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
-        setCookie(undefined, "projintegtoken", data.token, {
-          maxAge: 60 * 60 * 60,
-        });
-        setCookie(undefined, "username", data.usuario.nome, {
-          maxAge: 60 * 60 * 60,
-        });
-        setCookie(undefined, "userid", data.usuario.id, {
-          maxAge: 60 * 60 * 60,
-        });
+        // console.log(data);
+        if (data.access_token) {
+          setCookie(undefined, "projintegtoken", data.access_token, {
+            maxAge: 60 * 60 * 60,
+          });
+        } else {
+          setErro(true);
+        }
+
+        // setCookie(undefined, "username", data.usuario.nome, {
+        //   maxAge: 60 * 60 * 60,
+        // });
+        // setCookie(undefined, "userid", data.usuario.id, {
+        //   maxAge: 60 * 60 * 60,
+        // });
         api.defaults.headers["Authorization"] = `Bearer ${data.token}`;
         // setUser(data.usuario);
         // console.log(data.user);
@@ -43,7 +48,6 @@ export function AuthProvider({ children }) {
       .catch((err) => {
         setErro(true);
         return erro;
-        // console.error(err);
         // setCookie(undefined, "erro", erro, {
         //   maxAge: 20,
         // });
