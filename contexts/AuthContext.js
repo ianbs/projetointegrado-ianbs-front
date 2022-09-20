@@ -29,7 +29,7 @@ export function AuthProvider({ children }) {
         if (data.access_token) {
           setCookie(undefined, "projintegtoken", data.access_token, {
             maxAge: 60 * 60 * 60,
-            sameSite,
+            sameSite: true,
           });
         } else {
           setErro(true);
