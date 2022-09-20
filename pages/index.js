@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import HeadPage from "../src/Components/Head";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   addDays,
   addMonths,
@@ -18,13 +18,15 @@ import HeaderComponent from "../src/Components/Header";
 import SidebarComponent from "../src/Components/SideMenu/Sidebar";
 import { parseCookies } from "nookies";
 import { AuthContext } from "../contexts/AuthContext";
-import { api } from "../services/api";
+// import { api } from "../services/api";
 import { ptBR } from "date-fns/locale";
 import AgendaModal from "../src/Components/AgendaModal";
+import { api } from "../services/api";
 
 export default function Home() {
   const { user } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
+  const [prof, setProf] = useState([]);
 
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [activeDate, setActiveDate] = useState(new Date());
@@ -166,6 +168,9 @@ export default function Home() {
                       type="button"
                       onClick={() => {
                         setShowModal(!showModal);
+                        api.get("/profissional").then((data) => {
+                          setProf(data.data);
+                        });
                       }}
                     >
                       Adicionar <i className="las la-plus"></i>
@@ -205,6 +210,7 @@ export default function Home() {
                     data={selectedDate}
                     showModal={showModal}
                     setShowModal={setShowModal}
+                    prof={prof}
                   ></AgendaModal>
                 </div>
               </div>

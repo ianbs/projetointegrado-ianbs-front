@@ -23,8 +23,8 @@ export default function Consultas() {
   }, []);
 
   const searchConsulta = () => {
-    api.get("/consulta").then((data) => {
-      console.log(data.data);
+    api.get("consulta/").then((data) => {
+      // console.log(data.data);
       setConsultas(data.data);
     });
   };

@@ -36,14 +36,14 @@ const events = [
   },
 ];
 
-const AgendaModal = ({ data, showModal, setShowModal }) => {
+const AgendaModal = ({ data, showModal, setShowModal, prof }) => {
   const { register, handleSubmit, reset } = useForm({
     resolver: yupResolver(schema),
   });
   const [horarios, setHorarios] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const [profissionais, setProfissionais] = useState([]);
+  const [profissionais, setProfissionais] = useState(prof);
 
   const searchProfissionais = () => {
     api.get("/profissional").then((data) => {
@@ -183,12 +183,11 @@ const AgendaModal = ({ data, showModal, setShowModal }) => {
                         id="floatingSelect"
                         aria-label="Floating label select example"
                       >
-                        <option selected></option>
                         {profissionais && profissionais.length > 0 ? (
                           <>
                             {profissionais.map((profissional) => (
                               <option
-                                key={profissional.id + profissional.nome}
+                                key={profissional.id}
                                 value={profissional.id}
                               >
                                 {profissional.nome}
