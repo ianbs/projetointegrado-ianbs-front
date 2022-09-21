@@ -22,12 +22,12 @@ export default function PacienteInsert() {
           complemento: "",
           codigoIbge: null,
           tipoEndereco: "",
-          cidade: {
-            nome: "",
-            estado: {
-              id: 1,
-            },
-          },
+          // cidade: {
+          //   nome: "",
+          //   estado: {
+          //     id: 1,
+          //   },
+          // },
         },
       ],
     },
@@ -35,7 +35,9 @@ export default function PacienteInsert() {
   const { push } = useRouter();
 
   const handleUsuariosSubmit = async (data) => {
-    await api.post(`paciente/`, data).then(push("/cadastros/pacientes/"));
+    await api.post(`paciente/`, data, {headers: {
+      "Access-Control-Allow-Origin": '*'
+    }}).then(push("/cadastros/pacientes/"));
     reset();
   };
 
@@ -142,8 +144,8 @@ export default function PacienteInsert() {
                       aria-label=".form-select-sm example"
                       {...register("sexo")}
                     >
-                      <option value={0}>Masculino</option>
-                      <option value={1}>Feminino</option>
+                      <option value={'Masculino'}>Masculino</option>
+                      <option value={'Feminino'}>Feminino</option>
                     </select>
                   </div>
                   <EnderecoForm

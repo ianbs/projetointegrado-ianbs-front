@@ -136,8 +136,8 @@ export default function ColaboradorAlter() {
                       {...register("sexo")}
                       disabled
                     >
-                      <option value={0}>Masculino</option>
-                      <option value={1}>Feminino</option>
+                      <option value={'Masculino'}>Masculino</option>
+                      <option value={'Feminino'}>Feminino</option>
                     </select>
                   </div>
                   <EnderecoForm

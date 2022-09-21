@@ -18,7 +18,7 @@ export default function ColaboradorAlter() {
   const { id } = query;
 
   const handleUsuariosAlterSubmit = async (data) => {
-    await api.put(`paciente/${id}`, data).then(push("/cadastros/colaborador/"));
+    await api.put(`paciente/`, data).then(push("/cadastros/pacientes/"));
   };
 
   const buscaUsuario = useCallback(() => {
@@ -136,8 +136,8 @@ export default function ColaboradorAlter() {
                       aria-label=".form-select-sm example"
                       {...register("sexo")}
                     >
-                      <option value={0}>Masculino</option>
-                      <option value={1}>Feminino</option>
+                      <option value={'Masculino'}>Masculino</option>
+                      <option value={'Feminino'}>Feminino</option>
                     </select>
                   </div>
                   <EnderecoForm

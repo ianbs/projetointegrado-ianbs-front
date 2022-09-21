@@ -190,8 +190,8 @@ export default function ProfissionalAlter() {
                       {...register("sexo")}
                       disabled
                     >
-                      <option value={"MASCULINO"}>Masculino</option>
-                      <option value={"FEMININO"}>Feminino</option>
+                      <option value={"Masculino"}>Masculino</option>
+                      <option value={"Feminino"}>Feminino</option>
                     </select>
                   </div>
                   <div className="mb-1 col">

@@ -10,6 +10,7 @@
 	"dependencies": {
 		"@dicebear/avatars": "^4.10.2",
 		"@dicebear/croodles": "^4.10.2",
+		"@hookform/error-message": "^2.0.0",
 		"@hookform/resolvers": "^2.8.8",
 		"@mui/icons-material": "^5.4.4",
 		"@mui/material": "^5.4.4",

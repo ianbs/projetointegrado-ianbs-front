@@ -18,6 +18,8 @@ export default function Consultas() {
   const [tipoModal, setTipoModal] = useState("");
   const [itemModal, setItemModal] = useState([]);
 
+  const { push } = useRouter();
+
   useEffect(() => {
     searchConsulta();
   }, []);
@@ -29,19 +31,8 @@ export default function Consultas() {
     });
   };
 
-  const handleClickNovoAtendimento = () => {
-    setShowModal(!showModal);
-    setTipoModal("create");
-  };
-
-  const handleClickAlterarAtendimento = (item) => {
-    setShowModal(!showModal);
-    setTipoModal("alter");
-    setItemModal(item);
-  };
-
-  const deleteConsulta = () => {
-    console.log("delete");
+  const deleteConsulta = async (consultaID) => {
+    await api.delete(`/consulta/${consultaID}`).then(() => {push("/atendimentos/consultas/")});
   };
 
   return (
@@ -135,8 +126,7 @@ export default function Consultas() {
                               <button
                                 type="button"
                                 onClick={(e) => {
-                                  e.preventDefault;
-                                  deleteConsulta(user);
+                                  deleteConsulta(consulta.id);
                                 }}
                                 className="btn btn-outline-danger"
                               >

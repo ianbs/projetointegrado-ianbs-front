@@ -23,7 +23,7 @@ export default function Profissionais() {
 
   const deleteProfissional = async ({ id }) => {
     console.log(id);
-    await api.delete(`profissional/${id}`).then(push("/cadastros/medicos/"));
+    await api.delete(`profissional/${id}`).then(push("/cadastros/profissionais/"));
   };
 
   useEffect(() => {

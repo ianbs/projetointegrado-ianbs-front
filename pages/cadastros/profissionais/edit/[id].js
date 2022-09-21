@@ -19,7 +19,7 @@ export default function ColaboradorAlter() {
 
   const handleProfissionaisAlterSubmit = async (data) => {
     await api
-      .put(`profissional/${id}`, data)
+      .put(`profissional`, data)
       .then(push("/cadastros/profissionais/"));
   };
 
@@ -128,6 +128,22 @@ export default function ColaboradorAlter() {
                       className="form-control form-control-sm"
                       id="dataVinculo"
                     />
+                  </div>
+                  <div className="mb-1 col">
+                    <label
+                      htmlFor="complemento"
+                      className="form-label form-label-sm"
+                    >
+                      Sexo
+                    </label>
+                    <select
+                      className="form-select form-select-sm"
+                      aria-label=".form-select-sm example"
+                      {...register("sexo")}
+                    >
+                      <option value={"Masculino"}>Masculino</option>
+                      <option value={"Feminino"}>Feminino</option>
+                    </select>
                   </div>
                   <div className="mb-1 col">
                     <label

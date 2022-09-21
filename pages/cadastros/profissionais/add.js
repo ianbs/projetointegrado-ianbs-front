@@ -28,13 +28,7 @@ export default function ProfissionalInsert() {
           bairro: "",
           complemento: "",
           codigoIbge: null,
-          tipoEndereco: "",
-          cidade: {
-            nome: "",
-            estado: {
-              id: 1,
-            },
-          },
+          tipoEndereco: ""
         },
       ],
     },
@@ -44,7 +38,9 @@ export default function ProfissionalInsert() {
   const handleProfissionaisSubmit = async (data) => {
     console.log(data);
     await api
-      .post(`profissional`, data)
+      .post(`profissional`, data, {headers: {
+        "Access-Control-Allow-Origin": '*'
+      }})
       .then(push("/cadastros/profissionais/"));
     reset();
   };
@@ -76,7 +72,6 @@ export default function ProfissionalInsert() {
               </div>
               <div className="list-search overflow-auto border-top">
                 <form onSubmit={handleSubmit(handleProfissionaisSubmit)}>
-                  <input type="hidden" name="id" {...register("id")} />
                   <div className="mb-1 col">
                     <label htmlFor="nome" className="form-label form-label-sm">
                       Nome Completo
@@ -188,8 +183,8 @@ export default function ProfissionalInsert() {
                       aria-label=".form-select-sm example"
                       {...register("sexo")}
                     >
-                      <option value={0}>Masculino</option>
-                      <option value={1}>Feminino</option>
+                      <option value={'Masculino'}>Masculino</option>
+                      <option value={'Feminino'}>Feminino</option>
                     </select>
                   </div>
                   <div className="mb-1 col">

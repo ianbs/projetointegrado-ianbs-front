@@ -19,19 +19,26 @@ export default function ColaboradorInsert() {
 		formState: { errors },
 	} = useForm();
 	const { push } = useRouter();
-	const [users, setUsers] = useState([]);
+	const [erro, setErro] = useState(false);
+	const [msgErro, setMsgErro] = useState('false');
 
 	const handleConsultaSubmit = async (data) => {
-		console.log(data);
-		// await api
-		// 	.post(`/api/colaborador/`, data)
-		// 	.then(push("/cadastros/colaborador/"));
-		// reset();
+		await api
+			.post(`/consulta/`, data)
+			.then(
+				// push("/atendimentos/consultas/")
+				).catch((error) => {    
+				if (error.response) {
+					setErro(true);
+					setMsgErro(error.response.data.message[0]);
+				} 
+			});
+		reset();
 	};
 
-	// useEffect(() => {
-	//   handleUsuarios();
-	// }, []);
+	useEffect(() => {
+		setTimeout(() => setErro(false), 5000);
+	  });
 
 	return (
 		<div className="">
@@ -49,6 +56,7 @@ export default function ColaboradorInsert() {
 						<div className="card-body">
 							<div className="d-flex justify-content-between top-container mb-4">
 								<h6 className="">Formulário de Consultas</h6>
+								
 								<Link href={`/atendimentos/consultas/`} passHref>
 									<button
 										type="button"
@@ -57,11 +65,18 @@ export default function ColaboradorInsert() {
 										Voltar
 									</button>
 								</Link>
+
 							</div>
+							<div style={{backgroundColor: '#f00'}}>
+								{erro ? (<p>{msgErro}</p>) : (<></>)}
+								</div>
 							<div className="list-search overflow-auto border-top">
 								<form onSubmit={handleSubmit(handleConsultaSubmit)}>
-									<input type="hidden" name="id" {...register("id")} />
-									<div className="mb-1 col">
+							
+									
+
+									<input type="hidden" defaultValue={1} name="id" {...register("colaborador.id")} />
+											<div className="mb-1 col">
 										<label
 											htmlFor="paciente"
 											className="form-label form-label-sm"
@@ -69,9 +84,10 @@ export default function ColaboradorInsert() {
 											Paciente
 										</label>
 										<input
-											type="text"
-											{...register("paciente")}
+										defaultValue={1}
+											type="number"
 											name="paciente"
+											{...register("paciente.id")}
 											className="form-control form-control-sm"
 											id="paciente"
 										/>
@@ -85,9 +101,9 @@ export default function ColaboradorInsert() {
 											Profissional
 										</label>
 										<input
-											type="text"
+											type="number"
 											name="profissional"
-											{...register("profissional")}
+											{...register("profissional.id")}
 											className="form-control form-control-sm"
 											id="profissional"
 										/>
@@ -100,13 +116,28 @@ export default function ColaboradorInsert() {
 											Convênio
 										</label>
 										<input
-											type="text"
+											type="number"
 											name="convenio"
-											{...register("convenio")}
+											{...register("convenio.id")}
 											className="form-control form-control-sm"
 											id="convenio"
 										/>
 									</div>
+									<div className="mb-1 col">
+                    <label
+                      htmlFor="dataRealizacao"
+                      className="form-label form-label-sm"
+                    >
+                      Data de Realização
+                    </label>
+                    <input
+                      type="date"
+                      name="dataRealizacao"
+                      {...register("dataRealizacao")}
+                      className="form-control form-control-sm"
+                      id="dataRealizacao"
+                    />
+                  </div>
 									<div className="mb-1 col">
 										<label
 											htmlFor="procedimento"
@@ -117,7 +148,8 @@ export default function ColaboradorInsert() {
 										<input
 											type="text"
 											name="procedimento"
-											{...register("procedimento")}
+											value={'10101012 - Consulta'}
+											// {...register("procedimento")}
 											className="form-control form-control-sm"
 											id="procedimento"
 										/>
@@ -134,10 +166,10 @@ export default function ColaboradorInsert() {
 											aria-label=".form-select-sm example"
 											{...register("tipoConsulta")}
 										>
-											<option value={0}>Primeira Consulta</option>
-											<option value={1}>Retorno</option>
-											<option value={2}>Pré-Natal</option>
-											<option value={3}>Encaminhamento</option>
+											<option value={'Primeira Consulta'}>Primeira Consulta</option>
+											<option value={'Retorno'}>Retorno</option>
+											<option value={'Pre-Natal'}>Pré-Natal</option>
+											<option value={'Encaminhamento'}>Encaminhamento</option>
 										</select>
 									</div>
 									<div className="mb-1 col">
@@ -152,11 +184,11 @@ export default function ColaboradorInsert() {
 											aria-label=".form-select-sm example"
 											{...register("indicacaoAcidente")}
 										>
-											<option value={0}>Não Acidente </option>
-											<option value={1}>Pessoal</option>
-											<option value={2}>Trabalho</option>
-											<option value={3}>Transito</option>
-											<option value={4}>Outros</option>
+											<option value={'Não Acidente'}>Não Acidente </option>
+											<option value={'Pessoal'}>Pessoal</option>
+											<option value={'Trabalho'}>Trabalho</option>
+											<option value={'Transito'}>Transito</option>
+											<option value={'Outros'}>Outros</option>
 										</select>
 									</div>
 									<div className="mb-1 col">
@@ -171,8 +203,8 @@ export default function ColaboradorInsert() {
 											aria-label=".form-select-sm example"
 											{...register("caracterAtendimento")}
 										>
-											<option value={0}>Eletivo</option>
-											<option value={1}>Urgencia</option>
+											<option value={'Eletivo'}>Eletivo</option>
+											<option value={'Urgencia'}>Urgencia</option>
 										</select>
 									</div>
 									<div className="mb-4 col mt-4 form-check">

@@ -42,6 +42,8 @@ export function AuthProvider({ children }) {
         //   maxAge: 60 * 60 * 60,
         // });
         api.defaults.headers["Authorization"] = `Bearer ${data.token}`;
+        api.defaults.headers["Access-Control-Allow-Origin"] = '*';
+        api.defaults.headers["Content-Type"] = 'application/json';
         // setUser(data.usuario);
         // console.log(data.user);
         Router.push("/");

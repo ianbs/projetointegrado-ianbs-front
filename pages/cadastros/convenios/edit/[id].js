@@ -72,7 +72,7 @@ export default function ConveniosAlter() {
                       id="nome"
                     />
                   </div>
-                  <div className="mb-1 col">
+                  {/* <div className="mb-1 col">
                     <label
                       htmlFor="dataVinculo"
                       className="form-label form-label-sm"
@@ -86,7 +86,7 @@ export default function ConveniosAlter() {
                       className="form-control form-control-sm"
                       id="dataVinculo"
                     />
-                  </div>
+                  </div> */}
                   <div className="form-check form-switch m-2">
                     <input
                       className="form-check-input"

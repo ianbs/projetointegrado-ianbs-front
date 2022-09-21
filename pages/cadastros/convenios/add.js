@@ -15,7 +15,7 @@ export default function ConveniosInsert() {
   const { push } = useRouter();
 
   const handleConvenioSubmit = async (data) => {
-    await api.post(`convenio/`, data).then(push("/cadastros/convenios/"));
+    await api.post(`convenio`, data).then(push("/cadastros/convenios/"));
     reset();
   };
 
@@ -60,7 +60,7 @@ export default function ConveniosInsert() {
                     />
                   </div>
 
-                  <div className="mb-1 col">
+                  {/* <div className="mb-1 col">
                     <label htmlFor="cpf" className="form-label form-label-sm">
                       Data de Vínculo
                     </label>
@@ -71,7 +71,7 @@ export default function ConveniosInsert() {
                       className="form-control form-control-sm"
                       id="cpf"
                     />
-                  </div>
+                  </div> */}
                   <div className="form-check form-switch m-2">
                     <input
                       className="form-check-input"
