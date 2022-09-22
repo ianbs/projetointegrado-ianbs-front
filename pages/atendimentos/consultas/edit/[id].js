@@ -19,12 +19,16 @@ export default function ColaboradorAlter() {
 
 	const handleConsultaAlterSubmit = async (data) => {
 		await api
-			.put(`/api/consultas/${id}`, data)
+			.put(`/api/consultas/${id}`, data,{headers: {
+				"Access-Control-Allow-Origin": '*'
+			  }})
 			.then(push("/atendimento/consultas/"));
 	};
 
 	const buscaUsuario = useCallback(() => {
-		api.get(`/api/colaborador/${id}`).then((response) => {
+		api.get(`/api/colaborador/${id}`,{headers: {
+			"Access-Control-Allow-Origin": '*'
+		  }}).then((response) => {
 			console.log(1);
 			reset(response.data);
 		});

@@ -17,14 +17,18 @@ export default function Convenios() {
   const [convenios, setConvenios] = useState([]);
 
   const handleConvenios = async () => {
-    await api.get("convenio/").then((resposta) => {
+    await api.get("convenio/", {headers: {
+      "Access-Control-Allow-Origin": '*'
+    }}).then((resposta) => {
       setConvenios(resposta.data);
     });
   };
 
   const deleteConvenio = async ({ id }) => {
     console.log(id);
-    await api.delete(`convenio/${id}`).then(push("/cadastros/convenios/"));
+    await api.delete(`convenio/${id}`,{headers: {
+      "Access-Control-Allow-Origin": '*'
+    }}).then(() => push("/cadastros/convenios/"));
   };
 
   useEffect(() => {
@@ -72,7 +76,7 @@ export default function Convenios() {
                       href={`/cadastros/convenios/${convenio.id}`}
                       replace
                     >
-                      <a
+                      <div
                         className="list-group-item list-group-item-action text-break"
                         aria-current="true"
                       >
@@ -116,7 +120,7 @@ export default function Convenios() {
                             </div>
                           </small>
                         </div>
-                      </a>
+                      </div>
                     </Link>
                   ))}
                 </div>

@@ -15,7 +15,9 @@ export default function Colaborador() {
   const [colaboradores, setColaboradores] = useState([]);
 
   const handleColaborador = async () => {
-    await api.get("/colaborador/").then((resposta) => {
+    await api.get("/colaborador/",{headers: {
+      "Access-Control-Allow-Origin": '*'
+    }}).then((resposta) => {
       setColaboradores(resposta.data);
     });
   };
@@ -23,8 +25,10 @@ export default function Colaborador() {
   const deleteColaborador = async ({ id }) => {
     console.log(id);
     await api
-      .delete(`/colaborador/${id}`)
-      .then(push("/cadastros/colaborador/"));
+      .delete(`/colaborador/${id}`,{headers: {
+        "Access-Control-Allow-Origin": '*'
+      }})
+      .then(() => push("/cadastros/colaborador/"));
   };
 
   useEffect(() => {
@@ -69,7 +73,7 @@ export default function Colaborador() {
                       href={`/cadastros/colaborador/${colaborador.id}`}
                       replace
                     >
-                      <a
+                      <div
                         className="list-group-item list-group-item-action text-break"
                         aria-current="true"
                       >
@@ -121,7 +125,7 @@ export default function Colaborador() {
                             </div>
                           </small>
                         </div>
-                      </a>
+                      </div>
                     </Link>
                   ))}
                 </div>

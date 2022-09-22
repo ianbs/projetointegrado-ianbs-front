@@ -25,14 +25,18 @@ export default function Consultas() {
   }, []);
 
   const searchConsulta = () => {
-    api.get("consulta/").then((data) => {
+    api.get("consulta/",{headers: {
+      "Access-Control-Allow-Origin": '*'
+    }}).then((data) => {
       // console.log(data.data);
       setConsultas(data.data);
     });
   };
 
   const deleteConsulta = async (consultaID) => {
-    await api.delete(`/consulta/${consultaID}`).then(() => {push("/atendimentos/consultas/")});
+    await api.delete(`/consulta/${consultaID}`,{headers: {
+      "Access-Control-Allow-Origin": '*'
+    }}).then(() => {push("/atendimentos/consultas/")});
   };
 
   return (
@@ -76,7 +80,7 @@ export default function Consultas() {
                       href={`/atendimentos/consultas/${consulta.id}`}
                       replace
                     >
-                      <a
+                      <div
                         className="list-group-item list-group-item-action text-break"
                         aria-current="true"
                       >
@@ -135,7 +139,7 @@ export default function Consultas() {
                             </div>
                           </small>
                         </div>
-                      </a>
+                      </div>
                     </Link>
                   ))}
                 </div>

@@ -37,7 +37,10 @@ export default function ColaboradorInsert() {
   const [users, setUsers] = useState([]);
 
   const handleUsuariosSubmit = async (data) => {
-    await api.post(`/colaborador/`, data).then(push("/cadastros/colaborador/"));
+    // console.log(data)
+    await api.post(`/colaborador/`, data,{headers: {
+      "Access-Control-Allow-Origin": '*'
+    }}).then(push("/cadastros/colaborador/"));
     reset();
   };
 

@@ -17,7 +17,9 @@ export default function ConveniosId() {
   const { id } = query;
 
   const buscaConvenios = useCallback(() => {
-    api.get(`convenio/${id}`).then((response) => {
+    api.get(`convenio/${id}`,{headers: {
+      "Access-Control-Allow-Origin": '*'
+    }}).then((response) => {
       console.log(1);
       reset(response.data);
     });

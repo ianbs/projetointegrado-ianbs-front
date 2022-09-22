@@ -18,11 +18,15 @@ export default function ConveniosAlter() {
   const { id } = query;
 
   const handleConveniosAlterSubmit = async (data) => {
-    await api.put(`convenio/${id}`, data).then(push("/cadastros/convenios/"));
+    await api.put(`convenio/`, data,{headers: {
+      "Access-Control-Allow-Origin": '*'
+    }}).then(push("/cadastros/convenios/"));
   };
 
   const buscaConvenio = useCallback(() => {
-    api.get(`convenio/${id}`).then((response) => {
+    api.get(`convenio/${id}`,{headers: {
+      "Access-Control-Allow-Origin": '*'
+    }}).then((response) => {
       console.log(1);
       reset(response.data);
     });

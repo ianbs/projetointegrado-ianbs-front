@@ -19,7 +19,9 @@ export default function ColaboradorAlter() {
 
   const handleProfissionaisAlterSubmit = async (data) => {
     await api
-      .put(`profissional`, data)
+      .put(`profissional`, data, {headers: {
+        "Access-Control-Allow-Origin": '*'
+      }})
       .then(push("/cadastros/profissionais/"));
   };
 

@@ -22,7 +22,9 @@ export default function Pacientes() {
 
   const deletePaciente = async ({ id }) => {
     console.log(id);
-    await api.delete(`paciente/${id}`).then(push("/cadastros/pacientes/"));
+    await api.delete(`paciente/${id}`, {headers: {
+      "Access-Control-Allow-Origin": '*'
+    }}).then(() => push("/cadastros/pacientes/"));
   };
 
   useEffect(() => {
@@ -70,7 +72,7 @@ export default function Pacientes() {
                       href={`/cadastros/pacientes/${paciente.id}`}
                       replace
                     >
-                      <a
+                      <div
                         className="list-group-item list-group-item-action text-break"
                         aria-current="true"
                       >
@@ -116,7 +118,7 @@ export default function Pacientes() {
                             </div>
                           </small>
                         </div>
-                      </a>
+                      </div>
                     </Link>
                   ))}
                 </div>

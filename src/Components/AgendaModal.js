@@ -119,8 +119,8 @@ const AgendaModal = ({ data, showModal, setShowModal, prof }) => {
                     style={{ width: "100%", height: "50vh" }}
                   >
                     <p>Horarios Marcados para {format(data, "dd/MM/yyyy")}</p>
-                    {events.map((item) => (
-                      <div key={item.id}>
+                    {events.map((item, key) => (
+                      <div key={key}>
                         <li className="list-group-item d-flex justify-content-between align-items-center">
                           {item.horario}
                           <div>
@@ -185,9 +185,9 @@ const AgendaModal = ({ data, showModal, setShowModal, prof }) => {
                       >
                         {profissionais && profissionais.length > 0 ? (
                           <>
-                            {profissionais.map((profissional) => (
+                            {profissionais.map((profissional, key) => (
                               <option
-                                key={profissional.id}
+                                key={key}
                                 value={profissional.id}
                               >
                                 {profissional.nome}

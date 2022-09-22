@@ -17,7 +17,9 @@ export default function ConsultaId() {
   const { id } = query;
 
   const buscaConsulta = useCallback(() => {
-    api.get(`/consulta/${id}`).then((response) => {
+    api.get(`/consulta/${id}`,{headers: {
+      "Access-Control-Allow-Origin": '*'
+    }}).then((response) => {
       // console.log(r);
       reset(response.data);
     });

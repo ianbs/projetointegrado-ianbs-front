@@ -15,7 +15,9 @@ export default function ConveniosInsert() {
   const { push } = useRouter();
 
   const handleConvenioSubmit = async (data) => {
-    await api.post(`convenio`, data).then(push("/cadastros/convenios/"));
+    await api.post(`convenio`, data , {headers: {
+      "Access-Control-Allow-Origin": '*'
+    }}).then(push("/cadastros/convenios/"));
     reset();
   };
 
@@ -46,7 +48,7 @@ export default function ConveniosInsert() {
               </div>
               <div className="list-search overflow-auto border-top">
                 <form onSubmit={handleSubmit(handleConvenioSubmit)}>
-                  <input type="hidden" name="id" {...register("id")} />
+                  {/* <input type="hidden" name="id" {...register("id")} /> */}
                   <div className="mb-1 col">
                     <label htmlFor="nome" className="form-label form-label-sm">
                       Nome

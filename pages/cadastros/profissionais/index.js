@@ -16,14 +16,18 @@ export default function Profissionais() {
   const [profissionais, setProfissionais] = useState([]);
 
   const handleProfissionais = async () => {
-    await api.get("profissional/").then((resposta) => {
+    await api.get("profissional/", {headers: {
+      "Access-Control-Allow-Origin": '*'
+    }}).then((resposta) => {
       setProfissionais(resposta.data);
     });
   };
 
   const deleteProfissional = async ({ id }) => {
     console.log(id);
-    await api.delete(`profissional/${id}`).then(push("/cadastros/profissionais/"));
+    await api.delete(`profissional/${id}`, {headers: {
+      "Access-Control-Allow-Origin": '*'
+    }}).then(() => push("/cadastros/profissionais/"));
   };
 
   useEffect(() => {
@@ -71,7 +75,7 @@ export default function Profissionais() {
                       href={`/cadastros/profissionais/${profissional.id}`}
                       replace
                     >
-                      <a
+                      <div
                         className="list-group-item list-group-item-action text-break"
                         aria-current="true"
                       >
@@ -122,7 +126,7 @@ export default function Profissionais() {
                             </div>
                           </small>
                         </div>
-                      </a>
+                      </div>
                     </Link>
                   ))}
                 </div>

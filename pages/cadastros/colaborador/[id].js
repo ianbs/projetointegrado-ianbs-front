@@ -18,7 +18,9 @@ export default function ColaboradorAlter() {
   const { id } = query;
 
   const buscaUsuario = useCallback(() => {
-    api.get(`/colaborador/${id}`).then((response) => {
+    api.get(`/colaborador/${id}`,{headers: {
+      "Access-Control-Allow-Origin": '*'
+    }}).then((response) => {
       console.log(1);
       reset(response.data);
     });

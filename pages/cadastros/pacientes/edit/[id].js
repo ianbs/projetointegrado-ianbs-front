@@ -22,7 +22,9 @@ export default function ColaboradorAlter() {
   };
 
   const buscaUsuario = useCallback(() => {
-    api.get(`paciente/${id}`).then((response) => {
+    api.get(`paciente/${id}`,{headers: {
+      "Access-Control-Allow-Origin": '*'
+    }}).then((response) => {
       console.log(1);
       reset(response.data);
     });

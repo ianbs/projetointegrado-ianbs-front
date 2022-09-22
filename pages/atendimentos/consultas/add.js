@@ -24,7 +24,9 @@ export default function ColaboradorInsert() {
 
 	const handleConsultaSubmit = async (data) => {
 		await api
-			.post(`/consulta/`, data)
+			.post(`/consulta/`, data,{headers: {
+				"Access-Control-Allow-Origin": '*'
+			  }})
 			.then(
 				// push("/atendimentos/consultas/")
 				).catch((error) => {    

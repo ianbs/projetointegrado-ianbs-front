@@ -18,7 +18,9 @@ export default function ProfissionalAlter() {
   const { id } = query;
 
   const buscaUsuario = useCallback(() => {
-    api.get(`profissional/${id}`).then((response) => {
+    api.get(`profissional/${id}`, {headers: {
+      "Access-Control-Allow-Origin": '*'
+    }}).then((response) => {
       console.log(1);
       reset(response.data);
     });
