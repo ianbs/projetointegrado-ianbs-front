@@ -96,7 +96,7 @@ const AgendaModal = ({ data, showModal, setShowModal, prof }) => {
 
   return showModal ? (
     <ModalStyle>
-      <div className="modal-dialog modal-xl" style={{ width: "100%" }}>
+      <div className="modal-dialog modal-xl bg-white p-2 rounded" style={{ width: "100%"}}>
         <div className="modal-content">
           <div className="modal-header justify-content-between">
             {data

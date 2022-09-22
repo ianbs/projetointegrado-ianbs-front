@@ -9,7 +9,7 @@ export default function NavBarItem({ item, ativo }) {
     <>
       {item.link ? (
         <Link href={"/"}>
-          <a style={{ textDecoration: "none" }}>
+          <a className="nav-item" style={{ textDecoration: "none", fontSize: '14px' }}>
             <li
               className={
                 item.ativo == ativo ? "nav-item row active" : "nav-item row"
