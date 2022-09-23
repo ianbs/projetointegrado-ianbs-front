@@ -21,26 +21,61 @@ export default function ColaboradorInsert() {
 	const { push } = useRouter();
 	const [erro, setErro] = useState(false);
 	const [msgErro, setMsgErro] = useState('false');
+	const [pacientes, setPacientes] = useState([])
+	const [profissionais, setProfissionais] = useState([])
+	const [convenios, setConvenios] = useState([])
 
 	const handleConsultaSubmit = async (data) => {
+		// console.log(data)
 		await api
-			.post(`/consulta/`, data,{headers: {
-				"Access-Control-Allow-Origin": '*'
-			  }})
+			.post(`/consulta/`, data, {
+				headers: {
+					"Access-Control-Allow-Origin": '*'
+				}
+			})
 			.then(
-				// push("/atendimentos/consultas/")
-				).catch((error) => {    
-				if (error.response) {
-					setErro(true);
-					setMsgErro(error.response.data.message[0]);
-				} 
-			});
+			// push("/atendimentos/consultas/")
+		).catch((error) => {
+			if (error.response) {
+				setErro(true);
+				setMsgErro(error.response.data.message[0]);
+			}
+		});
 		reset();
 	};
 
+	const handlePacientes = async () => {
+		await api.get("paciente/").then((resposta) => {
+			setPacientes(resposta.data);
+		});
+	};
+
+	const handleProfissionais = async () => {
+		await api.get("profissional/", {
+			headers: {
+				"Access-Control-Allow-Origin": '*'
+			}
+		}).then((resposta) => {
+			setProfissionais(resposta.data);
+		});
+	};
+
+	const handleConvenios = async () => {
+		await api.get("convenio/", {
+			headers: {
+				"Access-Control-Allow-Origin": '*'
+			}
+		}).then((resposta) => {
+			setConvenios(resposta.data);
+		});
+	};
+
 	useEffect(() => {
+		handlePacientes();
+		handleProfissionais();
+		handleConvenios();
 		setTimeout(() => setErro(false), 5000);
-	  });
+	}, []);
 
 	return (
 		<div className="">
@@ -58,7 +93,7 @@ export default function ColaboradorInsert() {
 						<div className="card-body">
 							<div className="d-flex justify-content-between top-container mb-4">
 								<h6 className="">Formulário de Consultas</h6>
-								
+
 								<Link href={`/atendimentos/consultas/`} passHref>
 									<button
 										type="button"
@@ -69,17 +104,46 @@ export default function ColaboradorInsert() {
 								</Link>
 
 							</div>
-							<div style={{backgroundColor: '#f00'}}>
+							<div style={{ backgroundColor: '#f00' }}>
 								{erro ? (<p>{msgErro}</p>) : (<></>)}
-								</div>
+							</div>
 							<div className="list-search overflow-auto border-top">
 								<form onSubmit={handleSubmit(handleConsultaSubmit)}>
-							
-									
+
+
 
 									<input type="hidden" defaultValue={1} name="id" {...register("colaborador.id")} />
-											<div className="mb-1 col">
-										<label
+									<div className="mb-1 col">
+										<div className="form-floating m-2">
+											<select
+												className="form-select"
+												id="floatingSelect"
+												{...register("paciente.id")}
+												aria-label="Floating label select example"
+											>
+												<option key={0}>
+													Selecione um paciente.
+												</option>
+												{pacientes && pacientes.length > 0 ? (
+													<>
+														{pacientes.map((paciente, key) => (
+															<option
+																key={key}
+																value={paciente.id}
+															>
+																{paciente.nome}
+															</option>
+														))}
+													</>
+												) : (
+													<option key={0} value="1">
+														Nenhum paciente encontrado.
+													</option>
+												)}
+											</select>
+											<label htmlFor="floatingSelect">Paciente</label>
+										</div>
+										{/* <label
 											htmlFor="paciente"
 											className="form-label form-label-sm"
 										>
@@ -92,11 +156,40 @@ export default function ColaboradorInsert() {
 											{...register("paciente.id")}
 											className="form-control form-control-sm"
 											id="paciente"
-										/>
+										/> */}
 									</div>
 
 									<div className="mb-1 col">
-										<label
+										<div className="form-floating m-2">
+											<select
+												className="form-select"
+												id="floatingSelect"
+												{...register("profissional.id")}
+												aria-label="Floating label select example"
+											>
+												<option key={0}>
+													Selecione um profissional.
+												</option>
+												{profissionais && profissionais.length > 0 ? (
+													<>
+														{profissionais.map((profissional, key) => (
+															<option
+																key={key}
+																value={profissional.id}
+															>
+																{profissional.nome}
+															</option>
+														))}
+													</>
+												) : (
+													<option key={0} value="1">
+														Nenhum profissional encontrado.
+													</option>
+												)}
+											</select>
+											<label htmlFor="floatingSelect">Profissional</label>
+										</div>
+										{/* <label
 											htmlFor="profissional"
 											className="form-label form-label-sm"
 										>
@@ -108,10 +201,39 @@ export default function ColaboradorInsert() {
 											{...register("profissional.id")}
 											className="form-control form-control-sm"
 											id="profissional"
-										/>
+										/> */}
 									</div>
 									<div className="mb-1 col">
-										<label
+										<div className="form-floating m-2">
+											<select
+												className="form-select"
+												id="floatingSelect"
+												{...register("convenio.id")}
+												aria-label="Floating label select example"
+											>
+												<option key={0} disabled>
+													Selecione um convênio.
+												</option>
+												{convenios && convenios.length > 0 ? (
+													<>
+														{convenios.map((convenio, key) => (
+															<option
+																key={key}
+																value={convenio.id}
+															>
+																{convenio.nome}
+															</option>
+														))}
+													</>
+												) : (
+													<option key={0} value="1">
+														Nenhum convenio encontrado.
+													</option>
+												)}
+											</select>
+											<label htmlFor="floatingSelect">Convênio</label>
+										</div>
+										{/* <label
 											htmlFor="convenio"
 											className="form-label form-label-sm"
 										>
@@ -123,23 +245,23 @@ export default function ColaboradorInsert() {
 											{...register("convenio.id")}
 											className="form-control form-control-sm"
 											id="convenio"
-										/>
+										/> */}
 									</div>
 									<div className="mb-1 col">
-                    <label
-                      htmlFor="dataRealizacao"
-                      className="form-label form-label-sm"
-                    >
-                      Data de Realização
-                    </label>
-                    <input
-                      type="date"
-                      name="dataRealizacao"
-                      {...register("dataRealizacao")}
-                      className="form-control form-control-sm"
-                      id="dataRealizacao"
-                    />
-                  </div>
+										<label
+											htmlFor="dataRealizacao"
+											className="form-label form-label-sm"
+										>
+											Data de Realização
+										</label>
+										<input
+											type="date"
+											name="dataRealizacao"
+											{...register("dataRealizacao")}
+											className="form-control form-control-sm"
+											id="dataRealizacao"
+										/>
+									</div>
 									<div className="mb-1 col">
 										<label
 											htmlFor="procedimento"
