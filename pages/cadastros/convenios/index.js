@@ -11,14 +11,15 @@ import HeaderComponent from "../../../src/Components/Header";
 import Link from "next/link";
 import { api } from "../../../services/api";
 
-export default function Convenios() {
+export default function Convenios({token}) {
   const { push } = useRouter();
 
   const [convenios, setConvenios] = useState([]);
 
   const handleConvenios = async () => {
     await api.get("convenio/", {headers: {
-      "Access-Control-Allow-Origin": '*'
+      "Access-Control-Allow-Origin": '*',
+      "Authorization" : `Bearer ${token}`
     }}).then((resposta) => {
       setConvenios(resposta.data);
     });
@@ -144,7 +145,9 @@ export async function getServerSideProps(ctx) {
     };
   }
   return {
-    props: {},
+    props: {
+      token
+    },
   };
 }
 

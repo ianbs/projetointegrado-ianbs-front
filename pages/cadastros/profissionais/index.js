@@ -11,13 +11,14 @@ import HeaderComponent from "../../../src/Components/Header";
 import Link from "next/link";
 import { api } from "../../../services/api";
 
-export default function Profissionais() {
+export default function Profissionais({token}) {
   const { push } = useRouter();
   const [profissionais, setProfissionais] = useState([]);
 
   const handleProfissionais = async () => {
     await api.get("profissional/", {headers: {
-      "Access-Control-Allow-Origin": '*'
+      "Access-Control-Allow-Origin": '*',
+      "Authorization" : `Bearer ${token}`
     }}).then((resposta) => {
       setProfissionais(resposta.data);
     });
@@ -26,7 +27,8 @@ export default function Profissionais() {
   const deleteProfissional = async ({ id }) => {
     console.log(id);
     await api.delete(`profissional/${id}`, {headers: {
-      "Access-Control-Allow-Origin": '*'
+      "Access-Control-Allow-Origin": '*',
+      "Authorization" : `Bearer ${token}`
     }}).then(() => push("/cadastros/profissionais/"));
   };
 
@@ -150,7 +152,9 @@ export async function getServerSideProps(ctx) {
     };
   }
   return {
-    props: {},
+    props: {
+      token
+    },
   };
 }
 

@@ -23,7 +23,7 @@ import { ptBR } from "date-fns/locale";
 import AgendaModal from "../src/Components/AgendaModal";
 import { api } from "../services/api";
 
-export default function Home() {
+export default function Home(props) {
   const { user } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
   const [prof, setProf] = useState([]);
@@ -32,6 +32,7 @@ export default function Home() {
   const [activeDate, setActiveDate] = useState(new Date());
 
   const getWeekDaysName = () => {
+    console.log(props)
     const weekStartDate = startOfWeek(activeDate);
     const weekDays = [];
     for (let day = 0; day < 7; day++) {
@@ -168,9 +169,9 @@ export default function Home() {
                       type="button"
                       onClick={() => {
                         setShowModal(!showModal);
-                        api.get("/profissional").then((data) => {
-                          setProf(data.data);
-                        });
+                        // api.get("/profissional").then((data) => {
+                        //   setProf(data.data);
+                        // });
                       }}
                     >
                       Adicionar <i className="las la-plus"></i>
@@ -211,6 +212,7 @@ export default function Home() {
                     showModal={showModal}
                     setShowModal={setShowModal}
                     prof={prof}
+                    token={props.token}
                   ></AgendaModal>
                 </div>
               </div>
@@ -235,8 +237,12 @@ export async function getServerSideProps(ctx) {
       },
     };
   }
+  
   return {
-    props: {},
+    props: {
+      server: true,
+      token
+    },
   };
 }
 

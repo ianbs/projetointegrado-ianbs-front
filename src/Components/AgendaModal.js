@@ -36,7 +36,7 @@ const events = [
   },
 ];
 
-const AgendaModal = ({ data, showModal, setShowModal, prof }) => {
+const AgendaModal = ({ data, showModal, setShowModal, prof, token }) => {
   const { register, handleSubmit, reset } = useForm({
     resolver: yupResolver(schema),
   });
@@ -45,8 +45,11 @@ const AgendaModal = ({ data, showModal, setShowModal, prof }) => {
 
   const [profissionais, setProfissionais] = useState(prof);
 
-  const searchProfissionais = () => {
-    api.get("/profissional").then((data) => {
+  const searchProfissionais = async () => {
+    await api.get("/profissional", {headers: {
+      "Access-Control-Allow-Origin": '*',
+      "Authorization" : `Bearer ${token}`
+    }}).then((data) => {
       console.log(data.data);
       setProfissionais(data.data);
     });
@@ -266,6 +269,8 @@ const AgendaModal = ({ data, showModal, setShowModal, prof }) => {
     ""
   );
 };
+
+
 
 const ModalStyle = styled.div`
   position: absolute;

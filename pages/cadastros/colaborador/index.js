@@ -10,13 +10,14 @@ import HeaderComponent from "../../../src/Components/Header";
 import { api } from "../../../services/api";
 import Link from "next/link";
 
-export default function Colaborador() {
+export default function Colaborador({token}) {
   const { push } = useRouter();
   const [colaboradores, setColaboradores] = useState([]);
 
   const handleColaborador = async () => {
     await api.get("/colaborador/",{headers: {
-      "Access-Control-Allow-Origin": '*'
+      "Access-Control-Allow-Origin": '*',
+      "Authorization" : `Bearer ${token}`
     }}).then((resposta) => {
       setColaboradores(resposta.data);
     });
@@ -149,7 +150,9 @@ export async function getServerSideProps(ctx) {
     };
   }
   return {
-    props: {},
+    props: {
+      token
+    },
   };
 }
 

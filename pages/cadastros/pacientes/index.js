@@ -10,7 +10,7 @@ import HeaderComponent from "../../../src/Components/Header";
 import Link from "next/link";
 import { api } from "../../../services/api";
 
-export default function Pacientes() {
+export default function Pacientes({token}) {
   const { push } = useRouter();
   const [pacientes, setPacientes] = useState([]);
 
@@ -23,7 +23,8 @@ export default function Pacientes() {
   const deletePaciente = async ({ id }) => {
     console.log(id);
     await api.delete(`paciente/${id}`, {headers: {
-      "Access-Control-Allow-Origin": '*'
+      "Access-Control-Allow-Origin": '*',
+      "Authorization" : `Bearer ${token}`
     }}).then(() => push("/cadastros/pacientes/"));
   };
 
@@ -143,7 +144,9 @@ export async function getServerSideProps(ctx) {
     };
   }
   return {
-    props: {},
+    props: {
+      token
+    },
   };
 }
 

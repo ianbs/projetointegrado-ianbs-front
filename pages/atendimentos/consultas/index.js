@@ -12,7 +12,7 @@ import HeaderComponent from "../../../src/Components/Header";
 import Link from "next/link";
 import { api } from "../../../services/api";
 
-export default function Consultas() {
+export default function Consultas({token}) {
   const [consultas, setConsultas] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [tipoModal, setTipoModal] = useState("");
@@ -26,7 +26,8 @@ export default function Consultas() {
 
   const searchConsulta = () => {
     api.get("consulta/",{headers: {
-      "Access-Control-Allow-Origin": '*'
+      "Access-Control-Allow-Origin": '*',
+      "Authorization" : `Bearer ${token}`
     }}).then((data) => {
       // console.log(data.data);
       setConsultas(data.data);
@@ -203,7 +204,9 @@ export async function getServerSideProps(ctx) {
     };
   }
   return {
-    props: {},
+    props: {
+      token
+    },
   };
 }
 
