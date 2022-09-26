@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { api } from "../../services/api";
+import { useCallback } from "react";
 
 const schema = yup
   .object({
@@ -45,15 +46,12 @@ const AgendaModal = ({ data, showModal, setShowModal, prof, token }) => {
 
   const [profissionais, setProfissionais] = useState(prof);
 
-  const searchProfissionais = async () => {
-    await api.get("/profissional", {headers: {
-      "Access-Control-Allow-Origin": '*',
-      "Authorization" : `Bearer ${token}`
-    }}).then((data) => {
+  const searchProfissionais = useCallback(() => {
+    api.get("/profissional").then((data) => {
       console.log(data.data);
       setProfissionais(data.data);
     });
-  };
+  }, []);
 
   const handleCloseClick = (e) => {
     e.preventDefault();
@@ -95,11 +93,14 @@ const AgendaModal = ({ data, showModal, setShowModal, prof, token }) => {
   useEffect(() => {
     searchProfissionais();
     handleAvailableTimes();
-  }, [data]);
+  }, [searchProfissionais]);
 
   return showModal ? (
     <ModalStyle>
-      <div className="modal-dialog modal-xl bg-white p-2 rounded" style={{ width: "100%"}}>
+      <div
+        className="modal-dialog modal-xl bg-white p-2 rounded"
+        style={{ width: "100%" }}
+      >
         <div className="modal-content">
           <div className="modal-header justify-content-between">
             {data
@@ -189,10 +190,7 @@ const AgendaModal = ({ data, showModal, setShowModal, prof, token }) => {
                         {profissionais && profissionais.length > 0 ? (
                           <>
                             {profissionais.map((profissional, key) => (
-                              <option
-                                key={key}
-                                value={profissional.id}
-                              >
+                              <option key={key} value={profissional.id}>
                                 {profissional.nome}
                               </option>
                             ))}
@@ -269,8 +267,6 @@ const AgendaModal = ({ data, showModal, setShowModal, prof, token }) => {
     ""
   );
 };
-
-
 
 const ModalStyle = styled.div`
   position: absolute;

@@ -25,11 +25,11 @@ export function AuthProvider({ children }) {
         return res.json();
       })
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         if (data.access_token) {
           setCookie(undefined, "projintegtoken", data.access_token, {
             maxAge: 60 * 60 * 60,
-            sameSite: "none",
+            // sameSite: "none",
           });
         } else {
           setErro(true);
@@ -41,9 +41,9 @@ export function AuthProvider({ children }) {
         // setCookie(undefined, "userid", data.usuario.id, {
         //   maxAge: 60 * 60 * 60,
         // });
-        api.defaults.headers["Authorization"] = `Bearer ${data.token}`;
-        api.defaults.headers["Access-Control-Allow-Origin"] = '*';
-        api.defaults.headers["Content-Type"] = 'application/json';
+        api.defaults.headers["Authorization"] = `Bearer ${data.access_token}`;
+        api.defaults.headers["Access-Control-Allow-Origin"] = "*";
+        api.defaults.headers["Content-Type"] = "application/json";
         // setUser(data.usuario);
         // console.log(data.user);
         Router.push("/");

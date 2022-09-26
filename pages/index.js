@@ -32,7 +32,7 @@ export default function Home(props) {
   const [activeDate, setActiveDate] = useState(new Date());
 
   const getWeekDaysName = () => {
-    console.log(props)
+    // console.log(props);
     const weekStartDate = startOfWeek(activeDate);
     const weekDays = [];
     for (let day = 0; day < 7; day++) {
@@ -84,7 +84,11 @@ export default function Home(props) {
       currentDate = addDays(currentDate, 7);
     }
 
-    return <div className="weekday-container">{allWeek}</div>;
+    return (
+      <div key={currentDate} className="weekday-container">
+        {allWeek}
+      </div>
+    );
   };
 
   return (
@@ -141,11 +145,11 @@ export default function Home(props) {
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
+                        {/* <tr>
                           <td>Joao</td>
                           <td>Mateus</td>
                           <td>C1</td>
-                        </tr>
+                        </tr> */}
                       </tbody>
                     </table>
                   </div>
@@ -227,7 +231,7 @@ export default function Home(props) {
 
 export async function getServerSideProps(ctx) {
   const { projintegtoken: token } = parseCookies(ctx);
-  console.log(token);
+  // console.log(token);
 
   if (!token) {
     return {
@@ -237,11 +241,11 @@ export async function getServerSideProps(ctx) {
       },
     };
   }
-  
+
   return {
     props: {
       server: true,
-      token
+      token,
     },
   };
 }

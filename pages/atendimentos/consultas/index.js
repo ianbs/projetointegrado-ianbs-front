@@ -12,7 +12,7 @@ import HeaderComponent from "../../../src/Components/Header";
 import Link from "next/link";
 import { api } from "../../../services/api";
 
-export default function Consultas({token}) {
+export default function Consultas({ token }) {
   const [consultas, setConsultas] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [tipoModal, setTipoModal] = useState("");
@@ -22,37 +22,57 @@ export default function Consultas({token}) {
 
   useEffect(() => {
     searchConsulta();
-  }, []);
+  });
 
-  const searchConsulta = () => {
-    api.get("consulta/",{headers: {
-      "Access-Control-Allow-Origin": '*',
-      "Authorization" : `Bearer ${token}`
-    }}).then((data) => {
-      // console.log(data.data);
-      setConsultas(data.data);
-    });
+  const searchConsulta = async () => {
+    await api
+      .get("consulta/", {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((data) => {
+        // console.log(data.data);
+        setConsultas(data.data);
+      });
   };
 
   const deleteConsulta = async (consultaID) => {
-    await api.delete(`/consulta/${consultaID}`,{headers: {
-      "Access-Control-Allow-Origin": '*'
-    }}).then(() => {push("/atendimentos/consultas/")});
+    await api
+      .delete(`/consulta/${consultaID}`, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+      .then(() => {
+        push("/atendimentos/consultas/");
+      });
   };
 
   const ativaConsulta = async (consultaID) => {
-    await api.put(`/consulta/active/${consultaID}`,{headers: {
-      "Access-Control-Allow-Origin": '*'
-    }}).then(() => {reload() //push("/atendimentos/consultas/")
-  });
+    await api
+      .put(`/consulta/active/${consultaID}`, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+      .then(() => {
+        reload(); //push("/atendimentos/consultas/")
+      });
   };
 
   const cancelConsulta = async (consultaID) => {
-    await api.put(`/consulta/cancel/${consultaID}`,{headers: {
-      "Access-Control-Allow-Origin": '*'
-    }}).then(() => {reload()});
+    await api
+      .put(`/consulta/cancel/${consultaID}`, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+      .then(() => {
+        reload();
+      });
   };
-
 
   return (
     <div className="">
@@ -96,69 +116,67 @@ export default function Consultas({token}) {
                     //   replace
                     //   className={consulta.cancelado ? "red-100" : ""}
                     // >
-                      <div
-                        key={consulta.id}
-                        className={consulta.cancelado ? "border border-danger list-group-item list-group-item-action text-break" : "list-group-item list-group-item-action text-break"}
-                        aria-current="true"
-                      >
-                        <div className="d-flex w-100 justify-content-between align-items-center">
-                          <h6 className="mb-1">
+                    <div
+                      key={consulta.id}
+                      className={
+                        consulta.cancelado
+                          ? "border border-danger list-group-item list-group-item-action text-break"
+                          : "list-group-item list-group-item-action text-break"
+                      }
+                      aria-current="true"
+                    >
+                      <div className="d-flex w-100 justify-content-between align-items-center">
+                        <h6 className="mb-1">
                           <label>Número da Consulta: {consulta.id}</label>
-                            <br />
-                            <label>Paciente: {consulta.paciente.nome}</label>
-                            <br />
-                            <small>
-                              Profissional: {consulta.profissional.nome}
-                            </small>
-                          </h6>
-                        </div>
-                        <div className="d-flex w-100 justify-content-between align-items-center">
-                          <p className="mb-1">
-                            <label>Convenio: {consulta.convenio.nome}</label>
-                            <br />
-                            <label>Data: {consulta.dataRealizacao}</label>
-                          </p>
+                          <br />
+                          <label>Paciente: {consulta.paciente.nome}</label>
+                          <br />
                           <small>
-                            <div
-                              className="btn-group btn-group-sm"
-                              role="group"
-                              aria-label="Basic outlined example"
+                            Profissional: {consulta.profissional.nome}
+                          </small>
+                        </h6>
+                      </div>
+                      <div className="d-flex w-100 justify-content-between align-items-center">
+                        <p className="mb-1">
+                          <label>Convenio: {consulta.convenio.nome}</label>
+                          <br />
+                          <label>Data: {consulta.dataRealizacao}</label>
+                        </p>
+                        <small>
+                          <div
+                            className="btn-group btn-group-sm"
+                            role="group"
+                            aria-label="Basic outlined example"
+                          >
+                            <Link
+                              href={`/atendimentos/consultas/${consulta.id}`}
+                              replace
                             >
-                              <Link
-                                href={`/atendimentos/consultas/${consulta.id}`}
-                                replace
+                              <a type="button" className="btn btn-outline-info">
+                                Detalhes
+                              </a>
+                            </Link>
+                            <Link
+                              href={`/atendimentos/consultas/attend/${consulta.id}`}
+                              replace
+                            >
+                              <a type="button" className="btn btn-outline-info">
+                                Atender
+                              </a>
+                            </Link>
+                            <Link
+                              href={`/atendimentos/consultas/edit/${consulta.id}`}
+                              replace
+                            >
+                              <a
+                                type="button"
+                                className="btn btn-outline-secondary"
                               >
-                                <a
-                                  type="button"
-                                  className="btn btn-outline-info"
-                                >
-                                  Detalhes
-                                </a>
-                              </Link>
-                              <Link
-                                href={`/atendimentos/consultas/attend/${consulta.id}`}
-                                replace
-                              >
-                                <a
-                                  type="button"
-                                  className="btn btn-outline-info"
-                                >
-                                  Atender
-                                </a>
-                              </Link>
-                              <Link
-                                href={`/atendimentos/consultas/edit/${consulta.id}`}
-                                replace
-                              >
-                                <a
-                                  type="button"
-                                  className="btn btn-outline-secondary"
-                                >
-                                  Editar
-                                </a>
-                              </Link>
-                              {consulta.cancelado ? (
-                                <button
+                                Editar
+                              </a>
+                            </Link>
+                            {consulta.cancelado ? (
+                              <button
                                 type="button"
                                 onClick={(e) => {
                                   ativaConsulta(consulta.id);
@@ -167,7 +185,8 @@ export default function Consultas({token}) {
                               >
                                 Ativar
                               </button>
-                              ) :  (<button
+                            ) : (
+                              <button
                                 type="button"
                                 onClick={(e) => {
                                   cancelConsulta(consulta.id);
@@ -175,12 +194,12 @@ export default function Consultas({token}) {
                                 className="btn btn-outline-danger"
                               >
                                 Cancelar
-                              </button>)}
-                              
-                            </div>
-                          </small>
-                        </div>
+                              </button>
+                            )}
+                          </div>
+                        </small>
                       </div>
+                    </div>
                     // </Link>
                   ))}
                 </div>
@@ -205,7 +224,7 @@ export async function getServerSideProps(ctx) {
   }
   return {
     props: {
-      token
+      token,
     },
   };
 }
