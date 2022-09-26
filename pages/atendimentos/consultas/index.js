@@ -39,6 +39,19 @@ export default function Consultas() {
     }}).then(() => {push("/atendimentos/consultas/")});
   };
 
+  const ativaConsulta = async (consultaID) => {
+    await api.put(`/consulta/active/${consultaID}`,{headers: {
+      "Access-Control-Allow-Origin": '*'
+    }}).then(() => {push("/atendimentos/consultas/")});
+  };
+
+  const cancelConsulta = async (consultaID) => {
+    await api.put(`/consulta/cancel/${consultaID}`,{headers: {
+      "Access-Control-Allow-Origin": '*'
+    }}).then(() => {push("/atendimentos/consultas/")});
+  };
+
+
   return (
     <div className="">
       <HeadPage pageTitle={"[Consultas]"} />
@@ -75,13 +88,15 @@ export default function Consultas() {
               <div className="list-search overflow-auto">
                 <div className="list-group">
                   {consultas.map((consulta) => (
-                    <Link
-                      key={consulta.id}
-                      href={`/atendimentos/consultas/${consulta.id}`}
-                      replace
-                    >
+                    // <Link
+                    //   key={consulta.id}
+                    //   href={`/atendimentos/consultas/${consulta.id}`}
+                    //   replace
+                    //   className={consulta.cancelado ? "red-100" : ""}
+                    // >
                       <div
-                        className="list-group-item list-group-item-action text-break"
+                      
+                        className={consulta.cancelado ? "border border-danger list-group-item list-group-item-action text-break" : "list-group-item list-group-item-action text-break"}
                         aria-current="true"
                       >
                         <div className="d-flex w-100 justify-content-between align-items-center">
@@ -106,6 +121,17 @@ export default function Consultas() {
                               aria-label="Basic outlined example"
                             >
                               <Link
+                                href={`/atendimentos/consultas/${consulta.id}`}
+                                replace
+                              >
+                                <a
+                                  type="button"
+                                  className="btn btn-outline-info"
+                                >
+                                  Detalhes
+                                </a>
+                              </Link>
+                              <Link
                                 href={`/atendimentos/consultas/attend/${consulta.id}`}
                                 replace
                               >
@@ -127,20 +153,31 @@ export default function Consultas() {
                                   Editar
                                 </a>
                               </Link>
-                              <button
+                              {consulta.cancelado ? (
+                                <button
                                 type="button"
                                 onClick={(e) => {
-                                  deleteConsulta(consulta.id);
+                                  ativaConsulta(consulta.id);
                                 }}
                                 className="btn btn-outline-danger"
                               >
-                                Excluir
+                                Ativar
                               </button>
+                              ) :  (<button
+                                type="button"
+                                onClick={(e) => {
+                                  cancelConsulta(consulta.id);
+                                }}
+                                className="btn btn-outline-danger"
+                              >
+                                Cancelar
+                              </button>)}
+                              
                             </div>
                           </small>
                         </div>
                       </div>
-                    </Link>
+                    // </Link>
                   ))}
                 </div>
               </div>

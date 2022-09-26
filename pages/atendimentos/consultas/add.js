@@ -34,7 +34,7 @@ export default function ColaboradorInsert() {
 				}
 			})
 			.then(
-			// push("/atendimentos/consultas/")
+			push("/atendimentos/consultas/")
 		).catch((error) => {
 			if (error.response) {
 				setErro(true);
