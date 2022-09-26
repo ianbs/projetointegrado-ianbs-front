@@ -20,6 +20,7 @@ export default function ColaboradorInsert() {
 	} = useForm();
 	const { push } = useRouter();
 	const [erro, setErro] = useState(false);
+	const [guia, setGuia] = useState(false);
 	const [msgErro, setMsgErro] = useState('false');
 	const [pacientes, setPacientes] = useState([])
 	const [profissionais, setProfissionais] = useState([])
@@ -33,8 +34,13 @@ export default function ColaboradorInsert() {
 					"Access-Control-Allow-Origin": '*'
 				}
 			})
-			.then(
-			push("/atendimentos/consultas/")
+			.then( (data) => { setGuia(true);
+								setMsgErro(`Guia Nº ${data.data.id} emitida com sucesso.`); 
+								setTimeout(() => {
+									setGuia(false);
+									setMsgErro('')
+									push("/atendimentos/consultas/")
+								}, 3000); }
 		).catch((error) => {
 			if (error.response) {
 				setErro(true);
@@ -107,12 +113,15 @@ export default function ColaboradorInsert() {
 							<div style={{ backgroundColor: '#f00' }}>
 								{erro ? (<p>{msgErro}</p>) : (<></>)}
 							</div>
+							<div style={{ backgroundColor: '#ddd' }}>
+								{guia ? (<p>{msgErro}</p>) : (<></>)}
+							</div>
 							<div className="list-search overflow-auto border-top">
 								<form onSubmit={handleSubmit(handleConsultaSubmit)}>
 
 
 
-									<input type="hidden" defaultValue={1} name="id" {...register("colaborador.id")} />
+									<input type="hidden" name="id" {...register("colaborador.id", {value: 1})} readOnly/>
 									<div className="mb-1 col">
 										<div className="form-floating m-2">
 											<select
@@ -121,7 +130,7 @@ export default function ColaboradorInsert() {
 												{...register("paciente.id")}
 												aria-label="Floating label select example"
 											>
-												<option key={0}>
+												<option key={'06558542'}>
 													Selecione um paciente.
 												</option>
 												{pacientes && pacientes.length > 0 ? (
@@ -136,7 +145,7 @@ export default function ColaboradorInsert() {
 														))}
 													</>
 												) : (
-													<option key={0} value="1">
+													<option key={'54564654'} value="1">
 														Nenhum paciente encontrado.
 													</option>
 												)}
@@ -167,7 +176,7 @@ export default function ColaboradorInsert() {
 												{...register("profissional.id")}
 												aria-label="Floating label select example"
 											>
-												<option key={0}>
+												<option key={'7897897435456'}>
 													Selecione um profissional.
 												</option>
 												{profissionais && profissionais.length > 0 ? (
@@ -182,7 +191,7 @@ export default function ColaboradorInsert() {
 														))}
 													</>
 												) : (
-													<option key={0} value="1">
+													<option key={'4556486158153'} value="1">
 														Nenhum profissional encontrado.
 													</option>
 												)}
@@ -211,7 +220,7 @@ export default function ColaboradorInsert() {
 												{...register("convenio.id")}
 												aria-label="Floating label select example"
 											>
-												<option key={0} disabled>
+												<option key={'415642384384'} disabled>
 													Selecione um convênio.
 												</option>
 												{convenios && convenios.length > 0 ? (
@@ -226,7 +235,7 @@ export default function ColaboradorInsert() {
 														))}
 													</>
 												) : (
-													<option key={0} value="1">
+													<option key={'45564864354557'} value="1">
 														Nenhum convenio encontrado.
 													</option>
 												)}

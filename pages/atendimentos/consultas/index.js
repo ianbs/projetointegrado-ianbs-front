@@ -18,7 +18,7 @@ export default function Consultas() {
   const [tipoModal, setTipoModal] = useState("");
   const [itemModal, setItemModal] = useState([]);
 
-  const { push } = useRouter();
+  const { push, reload } = useRouter();
 
   useEffect(() => {
     searchConsulta();
@@ -42,13 +42,14 @@ export default function Consultas() {
   const ativaConsulta = async (consultaID) => {
     await api.put(`/consulta/active/${consultaID}`,{headers: {
       "Access-Control-Allow-Origin": '*'
-    }}).then(() => {push("/atendimentos/consultas/")});
+    }}).then(() => {reload() //push("/atendimentos/consultas/")
+  });
   };
 
   const cancelConsulta = async (consultaID) => {
     await api.put(`/consulta/cancel/${consultaID}`,{headers: {
       "Access-Control-Allow-Origin": '*'
-    }}).then(() => {push("/atendimentos/consultas/")});
+    }}).then(() => {reload()});
   };
 
 
@@ -101,6 +102,8 @@ export default function Consultas() {
                       >
                         <div className="d-flex w-100 justify-content-between align-items-center">
                           <h6 className="mb-1">
+                          <label>Número da Consulta: {consulta.id}</label>
+                            <br />
                             <label>Paciente: {consulta.paciente.nome}</label>
                             <br />
                             <small>
