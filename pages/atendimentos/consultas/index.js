@@ -95,7 +95,7 @@ export default function Consultas() {
                     //   className={consulta.cancelado ? "red-100" : ""}
                     // >
                       <div
-                      
+                        key={consulta.id}
                         className={consulta.cancelado ? "border border-danger list-group-item list-group-item-action text-break" : "list-group-item list-group-item-action text-break"}
                         aria-current="true"
                       >
